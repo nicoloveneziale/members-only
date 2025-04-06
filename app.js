@@ -7,6 +7,7 @@ const passport = require("passport");
 
 require("dotenv").config();
 
+//Express setup
 const app = express();
 
 app.set("views", path.join(__dirname, "views"));

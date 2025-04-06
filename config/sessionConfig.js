@@ -7,7 +7,7 @@ module.exports = () =>
   session({
     secret: "cats",
     resave: false,
-    saveUninitialized: false,
+    saveUninitialized: true,
     store: new PgStore({ pool: pool, createTableIfMissing: true }),
     cookie: {
       maxAge: 1000 * 60 * 60 * 24 * 30,
