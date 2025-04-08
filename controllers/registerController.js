@@ -1,4 +1,4 @@
-const db = reqiure("../db/queries");
+const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
 
 async function postRegister(req, res, next) {
@@ -9,15 +9,19 @@ async function postRegister(req, res, next) {
       encryptedPassword,
       req.body.firstname,
       req.body.lastname,
-      false,
-      false,
     );
+    res.redirect("/");
   } catch (error) {
     console.log(error);
     next(error);
   }
 }
 
+async function getRegister(req, res) {
+  res.render("register");
+}
+
 module.exports = {
   postRegister,
+  getRegister,
 };
