@@ -18,6 +18,7 @@ app.use(express.static(assetsPath));
 
 //Authentication
 app.use(sessionConfig());
+app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passportConfig");
 
