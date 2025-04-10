@@ -15,7 +15,7 @@ router.post("/register", registerController.postRegister);
 
 // GET routes
 router.get("/", (req, res) => {
-  res.render("index", { user: req.user });
+  res.render("index", { user: req.user ? req.user[0] : null });
 });
 
 router.get("/register", registerController.getRegister);

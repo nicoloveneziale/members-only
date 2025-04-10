@@ -5,7 +5,6 @@ const bcrypt = require("bcryptjs");
 
 const verifyCallback = async (username, password, done) => {
   try {
-    console.log("Attempting to authenticate user:", username);
     const rows = await db.getUserFromUsername(username);
     const user = rows[0];
 

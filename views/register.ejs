@@ -20,6 +20,13 @@
       />
       <label for="lastname">Last Name</label>
       <input id="lastname" name="lastname" placeholder="lastname" type="text" />
+      <% if (locals.errors) {%>
+      <ul>
+        <% errors.forEach(function(error) { %>
+          <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+      <%  } %>
       <button type="submit">Register</button>
     </form>
   </body>
