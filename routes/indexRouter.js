@@ -7,7 +7,7 @@ router.post(
   "/login",
   passport.authenticate("local", {
     successRedirect: "/",
-    failureRedirect: "/",
+    failureRedirect: "/login",
   }),
 );
 
@@ -18,8 +18,19 @@ router.get("/", (req, res) => {
   res.render("index", { user: req.user });
 });
 
-//router.get("/login", );
-
 router.get("/register", registerController.getRegister);
+
+router.get("/login", (req, res) => {
+  res.render("login");
+});
+
+router.get("/logout", (req, res, next) => {
+  req.logout((err) => {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/");
+  });
+});
 
 module.exports = router;

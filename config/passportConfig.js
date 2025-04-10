@@ -5,12 +5,16 @@ const bcrypt = require("bcryptjs");
 
 const verifyCallback = async (username, password, done) => {
   try {
-    const user = await db.getUserFromUsername(username);
+    console.log("Attempting to authenticate user:", username);
+    const rows = await db.getUserFromUsername(username);
+    const user = rows[0];
+
     if (!user) {
       return done(null, false, { message: "Username not found" });
     }
 
     const match = await bcrypt.compare(password, user.password);
+
     if (!match) {
       return done(null, false, { message: "Incorrect password" });
     }
