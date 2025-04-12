@@ -34,8 +34,20 @@ async function getUserFromId(id) {
   return rows;
 }
 
+async function updateMember(id) {
+  await pool.query(
+    `
+      UPDATE users
+      SET membership_status = True
+      WHERE id = ($1)
+    `,
+    [id],
+  );
+}
+
 module.exports = {
   insertUser,
   getUserFromUsername,
   getUserFromId,
+  updateMember,
 };

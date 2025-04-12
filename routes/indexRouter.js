@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const passport = require("passport");
 const registerController = require("../controllers/registerController");
+const joinController = require("../controllers/joinController");
 
 // POST routes
 router.post(
@@ -12,6 +13,8 @@ router.post(
 );
 
 router.post("/register", registerController.postRegister);
+
+router.post("/join", joinController.postJoin);
 
 // GET routes
 router.get("/", (req, res) => {
@@ -32,5 +35,7 @@ router.get("/logout", (req, res, next) => {
     res.redirect("/");
   });
 });
+
+router.get("/join", joinController.getJoin);
 
 module.exports = router;
