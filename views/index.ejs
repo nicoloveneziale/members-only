@@ -3,6 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <title>Members Only</title>
+  <script>
+    function timeAgo(dateString) {
+      const now = new Date();
+      const past = new Date(dateString);
+      const diffInSeconds = Math.floor((now - past) / 1000);
+
+      if (diffInSeconds < 60) {
+        return `${diffInSeconds} seconds ago`;
+      } else if (diffInSeconds < 3600) {
+        const diffInMinutes = Math.floor(diffInSeconds / 60);
+        return `${diffInMinutes} minutes ago`;
+      } else if (diffInSeconds < 86400) {
+        const diffInHours = Math.floor(diffInSeconds / 3600);
+        return `${diffInHours} hours ago`;
+      } else if (diffInSeconds < 2592000) {
+        const diffInDays = Math.floor(diffInSeconds / 86400);
+        return `${diffInDays} days ago`;
+      } else if (diffInSeconds < 31536000) {
+        const diffInMonths = Math.floor(diffInSeconds / 2592000);
+        return `${diffInMonths} months ago`;
+      } else {
+        const diffInYears = Math.floor(diffInSeconds / 31536000);
+        return `${diffInYears} years ago`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const dateElements = document.querySelectorAll('.message-date');
+      dateElements.forEach(element => {
+        const dateString = element.getAttribute('data-date');
+        element.textContent = timeAgo(dateString);
+      });
+    });
+  </script>
 </head>
 <body>
   <% if (user) {%>
@@ -24,5 +58,17 @@
       </ul>
     </nav>
   <%}%>
+  <div id="messages">
+    <% messages.forEach((message) => {%>
+      <div className="message">
+        <h3><%=message.title%></h3>
+        <p><%=message.text%></p>
+        <% if (user && user.membership_status !== null) {%>
+          <p class="message-date" data-date="<%= message.date %>"></p>
+          <p><%=message.author_username%></p>
+        <%}%>
+      </div>
+    <%}) %>
+  </div>
 </body>
 </html>

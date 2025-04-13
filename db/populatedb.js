@@ -15,7 +15,7 @@ const SQL = `
     CREATE TABLE IF NOT EXISTS messages (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     title VARCHAR( 255 ),
-    date DATE,
+    date TIMESTAMP WITH TIME ZONE,
     text TEXT,
     author_id INTEGER,
     FOREIGN KEY (author_id) REFERENCES users(id)
