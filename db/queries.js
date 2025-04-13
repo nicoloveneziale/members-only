@@ -45,9 +45,20 @@ async function updateMember(id) {
   );
 }
 
+async function insertMessage(title, date, text, authorId) {
+  await pool.query(
+    `
+        INSERT INTO messages (title, date, text, author_id)
+        VALUES ($1, $2, $3, $4, FALSE, FALSE)
+    `,
+    [title, date, text, authorId],
+  );
+}
+
 module.exports = {
   insertUser,
   getUserFromUsername,
   getUserFromId,
   updateMember,
+  insertMessage,
 };

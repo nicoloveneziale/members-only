@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Create a Message</title>
+  </head>
+  <body>
+    <h1>Create a Message</h1>
+    <form action="/messages/create" method="POST">
+      <label for="title">Title</label>
+      <input id="title" name="title" placeholder="Message Title" type="text" />
+      <label for="text">Message Text</label>
+      <input id="text" name="text" placeholder="maximum 400 characters" type="text" />
+      <% if (locals.errors) {%>
+      <ul>
+        <% errors.forEach(function(error) { %>
+          <li><%= error.msg %></li>
+        <% }); %>
+      </ul>
+      <%  } %>
+      <button type="submit">Post</button>
+    </form>
+  </body>
+</html>

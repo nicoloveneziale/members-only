@@ -2,6 +2,7 @@ const router = require("express").Router();
 const passport = require("passport");
 const registerController = require("../controllers/registerController");
 const joinController = require("../controllers/joinController");
+const messageController = require("../controllers/messagesController");
 
 // POST routes
 router.post(
@@ -11,6 +12,8 @@ router.post(
     failureRedirect: "/login",
   }),
 );
+
+router.post("/messages/create", messageController.postCreateMessage);
 
 router.post("/register", registerController.postRegister);
 
@@ -37,5 +40,7 @@ router.get("/logout", (req, res, next) => {
 });
 
 router.get("/join", joinController.getJoin);
+
+router.get("/messages/create", messageController.getCreateMessage);
 
 module.exports = router;

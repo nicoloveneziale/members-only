@@ -7,13 +7,22 @@
 <body>
   <% if (user) {%>
     <h1>WELCOME BACK <%= user.username %></h1>
-    <a href="/logout">LOG OUT</a>
-    <% if (!user.membership_status) {%>
-      <a href="/join">Join the club</a>
-    <%}%>
+    <nav>
+      <ul>
+        <li><a href="/logout">LOG OUT</a></li>
+        <% if (!user.membership_status) {%>
+        <li><a href="/join">Join the club</a></li>
+        <%}%>
+        <li><a href="/messages/create">Create a Message</a></li>
+      </ul>
+    </nav>
   <% } else { %>
-   <a href="/login">LOG IN</a>
-   <a href="/register">REGISTER</a>
+    <nav>
+      <ul>
+        <li><a href="/login">LOG IN</a></li>
+        <li><a href="/register">REGISTER</a></li>
+      </ul>
+    </nav>
   <%}%>
 </body>
 </html>
