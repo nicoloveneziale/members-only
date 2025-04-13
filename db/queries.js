@@ -49,10 +49,33 @@ async function insertMessage(title, date, text, authorId) {
   await pool.query(
     `
         INSERT INTO messages (title, date, text, author_id)
-        VALUES ($1, $2, $3, $4, FALSE, FALSE)
+        VALUES ($1, $2, $3, $4)
     `,
     [title, date, text, authorId],
   );
+}
+
+async function getAllMessages() {
+  const { rows } = await pool.query(
+    `
+     SELECT
+          m.id AS message_id,
+          m.title,
+          m.date,
+          m.text,
+          u.id AS author_id,
+          u.username AS author_username,
+          u.firstname AS author_firstname,
+          u.lastname AS author_lastname,
+          u.membership_status AS author_membership_status,
+          u.admin AS author_is_admin
+      FROM
+          messages m
+      JOIN
+          users u ON m.author_id = u.id;
+    `,
+  );
+  return rows;
 }
 
 module.exports = {
@@ -61,4 +84,5 @@ module.exports = {
   getUserFromId,
   updateMember,
   insertMessage,
+  getAllMessages,
 };

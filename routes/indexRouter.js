@@ -3,6 +3,7 @@ const passport = require("passport");
 const registerController = require("../controllers/registerController");
 const joinController = require("../controllers/joinController");
 const messageController = require("../controllers/messagesController");
+const indexController = require("../controllers/indexController");
 
 // POST routes
 router.post(
@@ -20,9 +21,7 @@ router.post("/register", registerController.postRegister);
 router.post("/join", joinController.postJoin);
 
 // GET routes
-router.get("/", (req, res) => {
-  res.render("index", { user: req.user ? req.user[0] : null });
-});
+router.get("/", indexController.getIndex);
 
 router.get("/register", registerController.getRegister);
 
