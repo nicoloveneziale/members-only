@@ -1,88 +1,116 @@
-const pool = require("./pool");
+const { PrismaClient } = require("../generated/prisma");
 
-async function insertUser(username, password, firstname, lastname) {
-  await pool.query(
-    `
-        INSERT INTO users (username, password, firstname, lastname, membership_status, admin)
-        VALUES ($1, $2, $3, $4, FALSE, FALSE)
-        `,
-    [username, password, firstname, lastname],
-  );
+const prisma = new PrismaClient();
+
+async function createUser(username, password, firstname, lastname) {
+  try {
+    const user = await prisma.user.create({
+      data: {
+        username: username,
+        password: password,
+        firstname: firstname,
+        lastname: lastname,
+      },
+    });
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
-async function getUserFromUsername(username) {
-  const { rows } = await pool.query(
-    `
-      SELECT *
-      FROM users
-      WHERE username = ($1)
-    `,
-    [username],
-  );
-  return rows;
+async function findUserFromUsername(username) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        username: username,
+      },
+    });
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
-async function getUserFromId(id) {
-  const { rows } = await pool.query(
-    `
-      SELECT *
-      FROM users
-      WHERE id = ($1)
-    `,
-    [id],
-  );
-  return rows;
+async function getUser(id) {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    return user;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 async function updateMember(id) {
-  await pool.query(
-    `
-      UPDATE users
-      SET membership_status = True
-      WHERE id = ($1)
-    `,
-    [id],
-  );
+  try {
+    const updateMember = await prisma.user.update({
+      where: {
+        id: id,
+      },
+      data: {
+        membership_status: true,
+      },
+    });
+    return updateMember;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
-async function insertMessage(title, date, text, authorId) {
-  await pool.query(
-    `
-        INSERT INTO messages (title, date, text, author_id)
-        VALUES ($1, $2, $3, $4)
-    `,
-    [title, date, text, authorId],
-  );
+async function createMessage(title, date, text, authorId) {
+  try {
+    const createMessage = await prisma.message.create({
+      data: {
+        title: title,
+        date: date,
+        text: text,
+        author: {
+          id: authorId,
+        },
+      },
+    });
+    return createMessage;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 async function getAllMessages() {
-  const { rows } = await pool.query(
-    `
-     SELECT
-          m.id AS message_id,
-          m.title,
-          m.date,
-          m.text,
-          u.id AS author_id,
-          u.username AS author_username,
-          u.firstname AS author_firstname,
-          u.lastname AS author_lastname,
-          u.membership_status AS author_membership_status,
-          u.admin AS author_is_admin
-      FROM
-          messages m
-      JOIN
-          users u ON m.author_id = u.id;
-    `,
-  );
-  return rows;
+  try {
+    const messages = await prisma.message.findMany({
+      include: {
+        users: {
+          select: {
+            id: true,
+            username: true,
+            firstname: true,
+            lastname: true,
+            membership_status: true,
+            admin: true,
+          },
+        },
+      },
+    });
+    return messages;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
 }
 
 module.exports = {
-  insertUser,
-  getUserFromUsername,
-  getUserFromId,
+  createUser,
+  findUserFromUsername,
+  getUser,
   updateMember,
-  insertMessage,
+  createMessage,
   getAllMessages,
 };
