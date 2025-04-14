@@ -20,7 +20,7 @@ const validateUser = [
     .isLength({ min: 3, max: 12 })
     .withMessage("Username must be between 3-12")
     .custom(async (value) => {
-      const user = await db.getUserFromUsername(value);
+      const user = await db.findUserFromUsername(value);
       if (user) {
         throw new Error("Username already in use");
       }
@@ -41,7 +41,7 @@ const postRegister = [
         return res.status(400).render("register", { errors: errors.array() });
       }
       const encryptedPassword = await bcrypt.hash(req.body.password, 10);
-      await db.insertUser(
+      await db.createUser(
         req.body.username,
         encryptedPassword,
         req.body.firstname,

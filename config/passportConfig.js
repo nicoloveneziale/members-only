@@ -5,15 +5,13 @@ const bcrypt = require("bcryptjs");
 
 const verifyCallback = async (username, password, done) => {
   try {
-    const rows = await db.getUserFromUsername(username);
-    const user = rows[0];
-
+    const user = await db.findUserFromUsername(username);
+    console.log(user);
     if (!user) {
       return done(null, false, { message: "Username not found" });
     }
 
     const match = await bcrypt.compare(password, user.password);
-
     if (!match) {
       return done(null, false, { message: "Incorrect password" });
     }
@@ -32,7 +30,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser(async (id, done) => {
   try {
-    const user = await db.getUserFromId(id);
+    const user = await db.getUser(id);
     done(null, user);
   } catch (err) {
     done(err);

@@ -4,7 +4,7 @@ require("dotenv").config();
 async function postJoin(req, res, next) {
   try {
     if (req.body.passcode === process.env.PASSCODE) {
-      await db.updateMember(req.user[0].id);
+      await db.updateMember(req.user.id);
       res.redirect("/");
     } else {
       return res.status(400).render("join", { error: "Incorrect passcode" });

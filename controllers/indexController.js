@@ -4,7 +4,7 @@ async function getIndex(req, res) {
   try {
     const messages = await db.getAllMessages();
     res.render("index", {
-      user: req.user ? req.user[0] : null,
+      user: req.user ? req.user : null,
       messages: messages,
     });
   } catch (err) {

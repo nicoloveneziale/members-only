@@ -1,12 +1,10 @@
 const db = require("../db/queries");
-const dateFnsTz = require("date-fns-tz");
-const { formatInTimeZone } = dateFnsTz;
 
 async function postCreateMessage(req, res, next) {
   try {
     const { title, text } = req.body;
     const now = new Date();
-    await db.insertMessage(title, now, text, req.user[0].id);
+    await db.createMessage(title, now, text, req.user.id);
     res.redirect("/");
   } catch (err) {
     console.log(err);

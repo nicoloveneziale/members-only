@@ -64,15 +64,17 @@ async function updateMember(id) {
   }
 }
 
-async function createMessage(title, date, text, authorId) {
+async function createMessage(title, date, text, userId) {
   try {
     const createMessage = await prisma.message.create({
       data: {
         title: title,
         date: date,
         text: text,
-        author: {
-          id: authorId,
+        users: {
+          connect: {
+            id: userId,
+          },
         },
       },
     });

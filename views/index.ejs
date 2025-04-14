@@ -65,7 +65,7 @@
         <p><%=message.text%></p>
         <% if (user && user.membership_status !== null) {%>
           <p class="message-date" data-date="<%= message.date %>"></p>
-          <p><%=message.author_username%></p>
+          <p><%=message.users.username%></p>
         <%}%>
       </div>
     <%}) %>
