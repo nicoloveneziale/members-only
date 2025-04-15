@@ -1,23 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Join the club</title>
-  </head>
-  <body>
-    <h1>Join the club</h1>
-    <form action="/join" method="POST">
-      <label for="passcode">Secret Passcode</label>
-      <input
-        id="passcode"
-        name="passcode"
-        placeholder="Secret Passcode"
-        type="password"
-      />
-      <% if (error) {%>
-          <p><%=error%></p>
-      <%}%>
-      <button type="submit">Join</button>
-    </form>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join the Club</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container join-form-container">
+            <h1 class="form-title join-title">Join the Club</h1>
+            <form action="/join" method="POST" class="form join-form">
+                <div class="form-group">
+                    <label for="passcode" class="form-label">Secret Passcode</label>
+                    <input
+                        id="passcode"
+                        name="passcode"
+                        placeholder="Secret Passcode"
+                        type="password"
+                        class="form-input"
+                    />
+                </div>
+                <% if (locals.error) { %>
+                    <p class="form-error"><%= error %></p>
+                <% } %>
+                <button type="submit" class="form-button join-button">Join</button>
+            </form>
+        </div>
+    </div>
+</body>
 </html>

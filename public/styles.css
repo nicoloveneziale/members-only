@@ -1,0 +1,350 @@
+/* Global Styles */
+body {
+  font-family: "Open Sans", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f2f5; /* Light background, like Facebook */
+  color: #333;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px; /* Wider container */
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header Styles */
+header {
+  background-color: #ffffff; /* White header */
+  padding: 15px 0;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between; /* Space out elements */
+  align-items: center;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 28px; /* Larger title */
+  color: #1877f2; /* Facebook blue */
+  font-weight: 700; /* Make the title bold */
+}
+
+.welcome-title {
+  margin: 0;
+  font-size: 22px;
+  color: #333;
+  font-weight: 600;
+}
+
+.username {
+  font-weight: 700;
+  color: #1877f2; /* Facebook blue */
+}
+
+/* Navigation Styles */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center; /* Vertically center items */
+}
+
+nav ul li {
+  margin-left: 25px; /* More space between nav items */
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #65676b; /* Darker gray */
+  font-weight: 600;
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+nav ul li a:hover {
+  background-color: #e9ebee; /* Light gray hover */
+  color: #1877f2; /* Facebook blue on hover */
+}
+
+.auth-nav ul li a {
+  background-color: #1877f2; /* Facebook blue */
+  color: white;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: 600;
+}
+
+.auth-nav ul li a:hover {
+  background-color: #1665ac; /* Darker blue hover */
+}
+
+.user-nav ul li a {
+  color: #65676b;
+}
+
+.user-nav ul li a:hover {
+  background-color: #e9ebee;
+  color: #1877f2;
+}
+
+/* Message Styles */
+#messages {
+  margin-top: 20px;
+}
+
+.message-card {
+  background-color: #fff; /* White message cards */
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 10px; /* More rounded corners */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease; /* Add box-shadow transition */
+}
+
+.message-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Increased shadow on hover */
+}
+
+.message-title {
+  margin: 0 0 12px 0;
+  font-size: 24px; /* Larger title */
+  color: #222; /* Very dark gray */
+  font-weight: 600;
+}
+
+.message-text {
+  margin: 0 0 15px 0; /* Increased margin */
+  color: #444; /* Slightly darker text */
+  line-height: 1.7; /* Increased line height for readability */
+}
+
+.message-info {
+  font-size: 14px;
+  color: #65676b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px; /* Increased margin */
+}
+
+.message-date {
+  margin-right: auto;
+  color: #8a8d91; /* More muted color for date */
+}
+
+.message-author {
+  font-weight: 600;
+  color: #1877f2; /* Facebook blue */
+}
+
+/* Footer Styles */
+.site-footer {
+  background-color: #ffffff;
+  padding: 25px 0;
+  margin-top: 40px;
+  border-top: 1px solid #ddd;
+  color: #65676b;
+  text-align: center;
+}
+
+.site-footer .container {
+  font-size: 16px;
+}
+
+/* General Form Styles */
+/* General Form Styles */
+.form-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+  margin-bottom: 30px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-title {
+  margin-bottom: 25px;
+  font-size: 28px;
+  color: #222;
+  text-align: center;
+  font-weight: 700;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box; /* Ensure padding doesn't affect width */
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #1877f2; /* Facebook blue */
+  box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2); /* Light blue shadow */
+}
+
+.form-errors {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #fdebeb;
+  border: 1px solid #fccaca;
+  border-radius: 8px;
+  list-style: none;
+  color: #d9534f;
+}
+
+.form-error-item {
+  margin-bottom: 5px;
+}
+
+.form-button {
+  width: 100%;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  background-color: #1877f2; /* Facebook blue */
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-button:hover {
+  background-color: #1665ac; /* Darker blue hover */
+}
+
+.form-footer {
+  margin-top: 20px;
+  text-align: center;
+  color: #65676b;
+  font-size: 16px;
+}
+
+.login-link {
+  color: #1877f2;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
+/* Specific to Login Form */
+.login-form-container {
+  background-color: #ffffff;
+}
+
+.login-title {
+  color: #1877f2;
+}
+
+.login-button {
+  background-color: #1877f2;
+}
+
+.login-button:hover {
+  background-color: #1665ac;
+}
+
+.register-link {
+  color: #1877f2;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.register-link:hover {
+  text-decoration: underline;
+}
+
+/* Specific to Join Club Form */
+.join-form-container {
+  background-color: #ffffff;
+}
+
+.join-title {
+  color: #1877f2;
+}
+
+.join-button {
+  background-color: #1877f2;
+}
+
+.join-button:hover {
+  background-color: #1665ac;
+}
+
+/* Specific to Register Form */
+.register-form-container {
+  background-color: #ffffff;
+}
+
+.register-title {
+  color: #1877f2;
+}
+
+.register-button {
+  background-color: #1877f2;
+}
+
+.register-button:hover {
+  background-color: #1665ac;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  header .container {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  nav ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav ul li {
+    margin: 15px 0;
+  }
+
+  .message-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .message-date {
+    margin-bottom: 5px;
+  }
+}

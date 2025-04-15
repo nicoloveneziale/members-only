@@ -1,33 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>register</title>
-  </head>
-  <body>
-    <h1>Register</h1>
-    <form action="/register" method="POST">
-      <label for="username">Username</label>
-      <input id="username" name="username" placeholder="username" type="text" />
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" />
-      <label for="firstname">First Name</label>
-      <input
-        id="firstname"
-        name="firstname"
-        placeholder="firstname"
-        type="text"
-      />
-      <label for="lastname">Last Name</label>
-      <input id="lastname" name="lastname" placeholder="lastname" type="text" />
-      <% if (locals.errors) {%>
-      <ul>
-        <% errors.forEach(function(error) { %>
-          <li><%= error.msg %></li>
-        <% }); %>
-      </ul>
-      <%  } %>
-      <button type="submit">Register</button>
-    </form>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container register-form-container">
+            <h1 class="form-title register-title">Register</h1>
+            <form action="/register" method="POST" class="form register-form">
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input id="username" name="username" placeholder="Username" type="text" class="form-input"/>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input id="password" name="password" type="password" class="form-input"/>
+                </div>
+                <div class="form-group">
+                    <label for="firstname" class="form-label">First Name</label>
+                    <input id="firstname" name="firstname" placeholder="First Name" type="text" class="form-input"/>
+                </div>
+                <div class="form-group">
+                    <label for="lastname" class="form-label">Last Name</label>
+                    <input id="lastname" name="lastname" placeholder="Last Name" type="text" class="form-input"/>
+                </div>
+                <% if (locals.errors) { %>
+                    <ul class="form-errors">
+                        <% errors.forEach(function(error) { %>
+                            <li class="form-error-item"><%= error.msg %></li>
+                        <% }); %>
+                    </ul>
+                <% } %>
+                <button type="submit" class="form-button register-button">Register</button>
+            </form>
+            <div class="form-footer">
+                <p>Already have an account? <a href="/login" class="login-link">Log In</a></p>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
