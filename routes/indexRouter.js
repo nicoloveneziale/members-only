@@ -20,6 +20,8 @@ router.post("/register", registerController.postRegister);
 
 router.post("/join", joinController.postJoin);
 
+router.post("/messages/:id/like", messageController.postMessageLike);
+
 // GET routes
 router.get("/", indexController.getIndex);
 

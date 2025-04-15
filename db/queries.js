@@ -99,12 +99,40 @@ async function getAllMessages() {
             admin: true,
           },
         },
+        _count: {
+          select: {
+            likedBy: true,
+          },
+        },
       },
     });
     return messages;
   } catch (err) {
     console.log(err);
     throw err;
+  }
+}
+
+async function likeMessage(messageId, userId) {
+  const existing = await prisma.messageLike.findUnique({
+    where: {
+      userId_messageId: { userId, messageId },
+    },
+  });
+
+  if (existing) {
+    await prisma.messageLike.delete({
+      where: {
+        userId_messageId: { userId, messageId },
+      },
+    });
+  } else {
+    await prisma.messageLike.create({
+      data: {
+        userId: userId,
+        messageId: messageId,
+      },
+    });
   }
 }
 
@@ -115,4 +143,5 @@ module.exports = {
   updateMember,
   createMessage,
   getAllMessages,
+  likeMessage,
 };

@@ -28,6 +28,11 @@ export type session = $Result.DefaultSelection<Prisma.$sessionPayload>
  * 
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
+/**
+ * Model MessageLike
+ * 
+ */
+export type MessageLike = $Result.DefaultSelection<Prisma.$MessageLikePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -183,6 +188,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.messageLike`: Exposes CRUD operations for the **MessageLike** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more MessageLikes
+    * const messageLikes = await prisma.messageLike.findMany()
+    * ```
+    */
+  get messageLike(): Prisma.MessageLikeDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -625,7 +640,8 @@ export namespace Prisma {
   export const ModelName: {
     Message: 'Message',
     session: 'session',
-    User: 'User'
+    User: 'User',
+    MessageLike: 'MessageLike'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +660,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "message" | "session" | "user"
+      modelProps: "message" | "session" | "user" | "messageLike"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -870,6 +886,80 @@ export namespace Prisma {
           }
         }
       }
+      MessageLike: {
+        payload: Prisma.$MessageLikePayload<ExtArgs>
+        fields: Prisma.MessageLikeFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.MessageLikeFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.MessageLikeFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload>
+          }
+          findFirst: {
+            args: Prisma.MessageLikeFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.MessageLikeFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload>
+          }
+          findMany: {
+            args: Prisma.MessageLikeFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload>[]
+          }
+          create: {
+            args: Prisma.MessageLikeCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload>
+          }
+          createMany: {
+            args: Prisma.MessageLikeCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.MessageLikeCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload>[]
+          }
+          delete: {
+            args: Prisma.MessageLikeDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload>
+          }
+          update: {
+            args: Prisma.MessageLikeUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload>
+          }
+          deleteMany: {
+            args: Prisma.MessageLikeDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.MessageLikeUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.MessageLikeUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload>[]
+          }
+          upsert: {
+            args: Prisma.MessageLikeUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$MessageLikePayload>
+          }
+          aggregate: {
+            args: Prisma.MessageLikeAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateMessageLike>
+          }
+          groupBy: {
+            args: Prisma.MessageLikeGroupByArgs<ExtArgs>
+            result: $Utils.Optional<MessageLikeGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.MessageLikeCountArgs<ExtArgs>
+            result: $Utils.Optional<MessageLikeCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -957,6 +1047,7 @@ export namespace Prisma {
     message?: MessageOmit
     session?: sessionOmit
     user?: UserOmit
+    messageLike?: MessageLikeOmit
   }
 
   /* Types for Logging */
@@ -1047,15 +1138,48 @@ export namespace Prisma {
 
 
   /**
+   * Count Type MessageCountOutputType
+   */
+
+  export type MessageCountOutputType = {
+    likedBy: number
+  }
+
+  export type MessageCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    likedBy?: boolean | MessageCountOutputTypeCountLikedByArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * MessageCountOutputType without action
+   */
+  export type MessageCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageCountOutputType
+     */
+    select?: MessageCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * MessageCountOutputType without action
+   */
+  export type MessageCountOutputTypeCountLikedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageLikeWhereInput
+  }
+
+
+  /**
    * Count Type UserCountOutputType
    */
 
   export type UserCountOutputType = {
     messages: number
+    likedMessages: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     messages?: boolean | UserCountOutputTypeCountMessagesArgs
+    likedMessages?: boolean | UserCountOutputTypeCountLikedMessagesArgs
   }
 
   // Custom InputTypes
@@ -1074,6 +1198,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: MessageWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountLikedMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageLikeWhereInput
   }
 
 
@@ -1284,6 +1415,8 @@ export namespace Prisma {
     text?: boolean
     author_id?: boolean
     users?: boolean | Message$usersArgs<ExtArgs>
+    likedBy?: boolean | Message$likedByArgs<ExtArgs>
+    _count?: boolean | MessageCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
 
   export type MessageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -1315,6 +1448,8 @@ export namespace Prisma {
   export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "date" | "text" | "author_id", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Message$usersArgs<ExtArgs>
+    likedBy?: boolean | Message$likedByArgs<ExtArgs>
+    _count?: boolean | MessageCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type MessageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Message$usersArgs<ExtArgs>
@@ -1327,6 +1462,7 @@ export namespace Prisma {
     name: "Message"
     objects: {
       users: Prisma.$UserPayload<ExtArgs> | null
+      likedBy: Prisma.$MessageLikePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -1729,6 +1865,7 @@ export namespace Prisma {
   export interface Prisma__MessageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     users<T extends Message$usersArgs<ExtArgs> = {}>(args?: Subset<T, Message$usersArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    likedBy<T extends Message$likedByArgs<ExtArgs> = {}>(args?: Subset<T, Message$likedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2175,6 +2312,30 @@ export namespace Prisma {
      */
     include?: UserInclude<ExtArgs> | null
     where?: UserWhereInput
+  }
+
+  /**
+   * Message.likedBy
+   */
+  export type Message$likedByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    where?: MessageLikeWhereInput
+    orderBy?: MessageLikeOrderByWithRelationInput | MessageLikeOrderByWithRelationInput[]
+    cursor?: MessageLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageLikeScalarFieldEnum | MessageLikeScalarFieldEnum[]
   }
 
   /**
@@ -3393,6 +3554,7 @@ export namespace Prisma {
     membership_status?: boolean
     admin?: boolean
     messages?: boolean | User$messagesArgs<ExtArgs>
+    likedMessages?: boolean | User$likedMessagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -3429,6 +3591,7 @@ export namespace Prisma {
   export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "password" | "firstname" | "lastname" | "membership_status" | "admin", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     messages?: boolean | User$messagesArgs<ExtArgs>
+    likedMessages?: boolean | User$likedMessagesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -3438,6 +3601,7 @@ export namespace Prisma {
     name: "User"
     objects: {
       messages: Prisma.$MessagePayload<ExtArgs>[]
+      likedMessages: Prisma.$MessageLikePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -3842,6 +4006,7 @@ export namespace Prisma {
   export interface Prisma__UserClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     messages<T extends User$messagesArgs<ExtArgs> = {}>(args?: Subset<T, User$messagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    likedMessages<T extends User$likedMessagesArgs<ExtArgs> = {}>(args?: Subset<T, User$likedMessagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4290,6 +4455,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.likedMessages
+   */
+  export type User$likedMessagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    where?: MessageLikeWhereInput
+    orderBy?: MessageLikeOrderByWithRelationInput | MessageLikeOrderByWithRelationInput[]
+    cursor?: MessageLikeWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: MessageLikeScalarFieldEnum | MessageLikeScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4305,6 +4494,1071 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: UserInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model MessageLike
+   */
+
+  export type AggregateMessageLike = {
+    _count: MessageLikeCountAggregateOutputType | null
+    _avg: MessageLikeAvgAggregateOutputType | null
+    _sum: MessageLikeSumAggregateOutputType | null
+    _min: MessageLikeMinAggregateOutputType | null
+    _max: MessageLikeMaxAggregateOutputType | null
+  }
+
+  export type MessageLikeAvgAggregateOutputType = {
+    userId: number | null
+    messageId: number | null
+  }
+
+  export type MessageLikeSumAggregateOutputType = {
+    userId: number | null
+    messageId: number | null
+  }
+
+  export type MessageLikeMinAggregateOutputType = {
+    userId: number | null
+    messageId: number | null
+  }
+
+  export type MessageLikeMaxAggregateOutputType = {
+    userId: number | null
+    messageId: number | null
+  }
+
+  export type MessageLikeCountAggregateOutputType = {
+    userId: number
+    messageId: number
+    _all: number
+  }
+
+
+  export type MessageLikeAvgAggregateInputType = {
+    userId?: true
+    messageId?: true
+  }
+
+  export type MessageLikeSumAggregateInputType = {
+    userId?: true
+    messageId?: true
+  }
+
+  export type MessageLikeMinAggregateInputType = {
+    userId?: true
+    messageId?: true
+  }
+
+  export type MessageLikeMaxAggregateInputType = {
+    userId?: true
+    messageId?: true
+  }
+
+  export type MessageLikeCountAggregateInputType = {
+    userId?: true
+    messageId?: true
+    _all?: true
+  }
+
+  export type MessageLikeAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessageLike to aggregate.
+     */
+    where?: MessageLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageLikes to fetch.
+     */
+    orderBy?: MessageLikeOrderByWithRelationInput | MessageLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: MessageLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned MessageLikes
+    **/
+    _count?: true | MessageLikeCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: MessageLikeAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: MessageLikeSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: MessageLikeMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: MessageLikeMaxAggregateInputType
+  }
+
+  export type GetMessageLikeAggregateType<T extends MessageLikeAggregateArgs> = {
+        [P in keyof T & keyof AggregateMessageLike]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateMessageLike[P]>
+      : GetScalarType<T[P], AggregateMessageLike[P]>
+  }
+
+
+
+
+  export type MessageLikeGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: MessageLikeWhereInput
+    orderBy?: MessageLikeOrderByWithAggregationInput | MessageLikeOrderByWithAggregationInput[]
+    by: MessageLikeScalarFieldEnum[] | MessageLikeScalarFieldEnum
+    having?: MessageLikeScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: MessageLikeCountAggregateInputType | true
+    _avg?: MessageLikeAvgAggregateInputType
+    _sum?: MessageLikeSumAggregateInputType
+    _min?: MessageLikeMinAggregateInputType
+    _max?: MessageLikeMaxAggregateInputType
+  }
+
+  export type MessageLikeGroupByOutputType = {
+    userId: number
+    messageId: number
+    _count: MessageLikeCountAggregateOutputType | null
+    _avg: MessageLikeAvgAggregateOutputType | null
+    _sum: MessageLikeSumAggregateOutputType | null
+    _min: MessageLikeMinAggregateOutputType | null
+    _max: MessageLikeMaxAggregateOutputType | null
+  }
+
+  type GetMessageLikeGroupByPayload<T extends MessageLikeGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<MessageLikeGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof MessageLikeGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], MessageLikeGroupByOutputType[P]>
+            : GetScalarType<T[P], MessageLikeGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type MessageLikeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    messageId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    message?: boolean | MessageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageLike"]>
+
+  export type MessageLikeSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    messageId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    message?: boolean | MessageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageLike"]>
+
+  export type MessageLikeSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    userId?: boolean
+    messageId?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    message?: boolean | MessageDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["messageLike"]>
+
+  export type MessageLikeSelectScalar = {
+    userId?: boolean
+    messageId?: boolean
+  }
+
+  export type MessageLikeOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"userId" | "messageId", ExtArgs["result"]["messageLike"]>
+  export type MessageLikeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    message?: boolean | MessageDefaultArgs<ExtArgs>
+  }
+  export type MessageLikeIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    message?: boolean | MessageDefaultArgs<ExtArgs>
+  }
+  export type MessageLikeIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    message?: boolean | MessageDefaultArgs<ExtArgs>
+  }
+
+  export type $MessageLikePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "MessageLike"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      message: Prisma.$MessagePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      userId: number
+      messageId: number
+    }, ExtArgs["result"]["messageLike"]>
+    composites: {}
+  }
+
+  type MessageLikeGetPayload<S extends boolean | null | undefined | MessageLikeDefaultArgs> = $Result.GetResult<Prisma.$MessageLikePayload, S>
+
+  type MessageLikeCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<MessageLikeFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: MessageLikeCountAggregateInputType | true
+    }
+
+  export interface MessageLikeDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['MessageLike'], meta: { name: 'MessageLike' } }
+    /**
+     * Find zero or one MessageLike that matches the filter.
+     * @param {MessageLikeFindUniqueArgs} args - Arguments to find a MessageLike
+     * @example
+     * // Get one MessageLike
+     * const messageLike = await prisma.messageLike.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends MessageLikeFindUniqueArgs>(args: SelectSubset<T, MessageLikeFindUniqueArgs<ExtArgs>>): Prisma__MessageLikeClient<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one MessageLike that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {MessageLikeFindUniqueOrThrowArgs} args - Arguments to find a MessageLike
+     * @example
+     * // Get one MessageLike
+     * const messageLike = await prisma.messageLike.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends MessageLikeFindUniqueOrThrowArgs>(args: SelectSubset<T, MessageLikeFindUniqueOrThrowArgs<ExtArgs>>): Prisma__MessageLikeClient<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MessageLike that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLikeFindFirstArgs} args - Arguments to find a MessageLike
+     * @example
+     * // Get one MessageLike
+     * const messageLike = await prisma.messageLike.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends MessageLikeFindFirstArgs>(args?: SelectSubset<T, MessageLikeFindFirstArgs<ExtArgs>>): Prisma__MessageLikeClient<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first MessageLike that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLikeFindFirstOrThrowArgs} args - Arguments to find a MessageLike
+     * @example
+     * // Get one MessageLike
+     * const messageLike = await prisma.messageLike.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends MessageLikeFindFirstOrThrowArgs>(args?: SelectSubset<T, MessageLikeFindFirstOrThrowArgs<ExtArgs>>): Prisma__MessageLikeClient<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more MessageLikes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLikeFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all MessageLikes
+     * const messageLikes = await prisma.messageLike.findMany()
+     * 
+     * // Get first 10 MessageLikes
+     * const messageLikes = await prisma.messageLike.findMany({ take: 10 })
+     * 
+     * // Only select the `userId`
+     * const messageLikeWithUserIdOnly = await prisma.messageLike.findMany({ select: { userId: true } })
+     * 
+     */
+    findMany<T extends MessageLikeFindManyArgs>(args?: SelectSubset<T, MessageLikeFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a MessageLike.
+     * @param {MessageLikeCreateArgs} args - Arguments to create a MessageLike.
+     * @example
+     * // Create one MessageLike
+     * const MessageLike = await prisma.messageLike.create({
+     *   data: {
+     *     // ... data to create a MessageLike
+     *   }
+     * })
+     * 
+     */
+    create<T extends MessageLikeCreateArgs>(args: SelectSubset<T, MessageLikeCreateArgs<ExtArgs>>): Prisma__MessageLikeClient<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many MessageLikes.
+     * @param {MessageLikeCreateManyArgs} args - Arguments to create many MessageLikes.
+     * @example
+     * // Create many MessageLikes
+     * const messageLike = await prisma.messageLike.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends MessageLikeCreateManyArgs>(args?: SelectSubset<T, MessageLikeCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many MessageLikes and returns the data saved in the database.
+     * @param {MessageLikeCreateManyAndReturnArgs} args - Arguments to create many MessageLikes.
+     * @example
+     * // Create many MessageLikes
+     * const messageLike = await prisma.messageLike.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many MessageLikes and only return the `userId`
+     * const messageLikeWithUserIdOnly = await prisma.messageLike.createManyAndReturn({
+     *   select: { userId: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends MessageLikeCreateManyAndReturnArgs>(args?: SelectSubset<T, MessageLikeCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a MessageLike.
+     * @param {MessageLikeDeleteArgs} args - Arguments to delete one MessageLike.
+     * @example
+     * // Delete one MessageLike
+     * const MessageLike = await prisma.messageLike.delete({
+     *   where: {
+     *     // ... filter to delete one MessageLike
+     *   }
+     * })
+     * 
+     */
+    delete<T extends MessageLikeDeleteArgs>(args: SelectSubset<T, MessageLikeDeleteArgs<ExtArgs>>): Prisma__MessageLikeClient<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one MessageLike.
+     * @param {MessageLikeUpdateArgs} args - Arguments to update one MessageLike.
+     * @example
+     * // Update one MessageLike
+     * const messageLike = await prisma.messageLike.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends MessageLikeUpdateArgs>(args: SelectSubset<T, MessageLikeUpdateArgs<ExtArgs>>): Prisma__MessageLikeClient<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more MessageLikes.
+     * @param {MessageLikeDeleteManyArgs} args - Arguments to filter MessageLikes to delete.
+     * @example
+     * // Delete a few MessageLikes
+     * const { count } = await prisma.messageLike.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends MessageLikeDeleteManyArgs>(args?: SelectSubset<T, MessageLikeDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MessageLikes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLikeUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many MessageLikes
+     * const messageLike = await prisma.messageLike.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends MessageLikeUpdateManyArgs>(args: SelectSubset<T, MessageLikeUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more MessageLikes and returns the data updated in the database.
+     * @param {MessageLikeUpdateManyAndReturnArgs} args - Arguments to update many MessageLikes.
+     * @example
+     * // Update many MessageLikes
+     * const messageLike = await prisma.messageLike.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more MessageLikes and only return the `userId`
+     * const messageLikeWithUserIdOnly = await prisma.messageLike.updateManyAndReturn({
+     *   select: { userId: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends MessageLikeUpdateManyAndReturnArgs>(args: SelectSubset<T, MessageLikeUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one MessageLike.
+     * @param {MessageLikeUpsertArgs} args - Arguments to update or create a MessageLike.
+     * @example
+     * // Update or create a MessageLike
+     * const messageLike = await prisma.messageLike.upsert({
+     *   create: {
+     *     // ... data to create a MessageLike
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the MessageLike we want to update
+     *   }
+     * })
+     */
+    upsert<T extends MessageLikeUpsertArgs>(args: SelectSubset<T, MessageLikeUpsertArgs<ExtArgs>>): Prisma__MessageLikeClient<$Result.GetResult<Prisma.$MessageLikePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of MessageLikes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLikeCountArgs} args - Arguments to filter MessageLikes to count.
+     * @example
+     * // Count the number of MessageLikes
+     * const count = await prisma.messageLike.count({
+     *   where: {
+     *     // ... the filter for the MessageLikes we want to count
+     *   }
+     * })
+    **/
+    count<T extends MessageLikeCountArgs>(
+      args?: Subset<T, MessageLikeCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], MessageLikeCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a MessageLike.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLikeAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends MessageLikeAggregateArgs>(args: Subset<T, MessageLikeAggregateArgs>): Prisma.PrismaPromise<GetMessageLikeAggregateType<T>>
+
+    /**
+     * Group by MessageLike.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {MessageLikeGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends MessageLikeGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: MessageLikeGroupByArgs['orderBy'] }
+        : { orderBy?: MessageLikeGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, MessageLikeGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetMessageLikeGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the MessageLike model
+   */
+  readonly fields: MessageLikeFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for MessageLike.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__MessageLikeClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    message<T extends MessageDefaultArgs<ExtArgs> = {}>(args?: Subset<T, MessageDefaultArgs<ExtArgs>>): Prisma__MessageClient<$Result.GetResult<Prisma.$MessagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the MessageLike model
+   */
+  interface MessageLikeFieldRefs {
+    readonly userId: FieldRef<"MessageLike", 'Int'>
+    readonly messageId: FieldRef<"MessageLike", 'Int'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * MessageLike findUnique
+   */
+  export type MessageLikeFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageLike to fetch.
+     */
+    where: MessageLikeWhereUniqueInput
+  }
+
+  /**
+   * MessageLike findUniqueOrThrow
+   */
+  export type MessageLikeFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageLike to fetch.
+     */
+    where: MessageLikeWhereUniqueInput
+  }
+
+  /**
+   * MessageLike findFirst
+   */
+  export type MessageLikeFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageLike to fetch.
+     */
+    where?: MessageLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageLikes to fetch.
+     */
+    orderBy?: MessageLikeOrderByWithRelationInput | MessageLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessageLikes.
+     */
+    cursor?: MessageLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageLikes.
+     */
+    distinct?: MessageLikeScalarFieldEnum | MessageLikeScalarFieldEnum[]
+  }
+
+  /**
+   * MessageLike findFirstOrThrow
+   */
+  export type MessageLikeFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageLike to fetch.
+     */
+    where?: MessageLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageLikes to fetch.
+     */
+    orderBy?: MessageLikeOrderByWithRelationInput | MessageLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for MessageLikes.
+     */
+    cursor?: MessageLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageLikes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of MessageLikes.
+     */
+    distinct?: MessageLikeScalarFieldEnum | MessageLikeScalarFieldEnum[]
+  }
+
+  /**
+   * MessageLike findMany
+   */
+  export type MessageLikeFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    /**
+     * Filter, which MessageLikes to fetch.
+     */
+    where?: MessageLikeWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of MessageLikes to fetch.
+     */
+    orderBy?: MessageLikeOrderByWithRelationInput | MessageLikeOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing MessageLikes.
+     */
+    cursor?: MessageLikeWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` MessageLikes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` MessageLikes.
+     */
+    skip?: number
+    distinct?: MessageLikeScalarFieldEnum | MessageLikeScalarFieldEnum[]
+  }
+
+  /**
+   * MessageLike create
+   */
+  export type MessageLikeCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    /**
+     * The data needed to create a MessageLike.
+     */
+    data: XOR<MessageLikeCreateInput, MessageLikeUncheckedCreateInput>
+  }
+
+  /**
+   * MessageLike createMany
+   */
+  export type MessageLikeCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many MessageLikes.
+     */
+    data: MessageLikeCreateManyInput | MessageLikeCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * MessageLike createManyAndReturn
+   */
+  export type MessageLikeCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * The data used to create many MessageLikes.
+     */
+    data: MessageLikeCreateManyInput | MessageLikeCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MessageLike update
+   */
+  export type MessageLikeUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    /**
+     * The data needed to update a MessageLike.
+     */
+    data: XOR<MessageLikeUpdateInput, MessageLikeUncheckedUpdateInput>
+    /**
+     * Choose, which MessageLike to update.
+     */
+    where: MessageLikeWhereUniqueInput
+  }
+
+  /**
+   * MessageLike updateMany
+   */
+  export type MessageLikeUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update MessageLikes.
+     */
+    data: XOR<MessageLikeUpdateManyMutationInput, MessageLikeUncheckedUpdateManyInput>
+    /**
+     * Filter which MessageLikes to update
+     */
+    where?: MessageLikeWhereInput
+    /**
+     * Limit how many MessageLikes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * MessageLike updateManyAndReturn
+   */
+  export type MessageLikeUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * The data used to update MessageLikes.
+     */
+    data: XOR<MessageLikeUpdateManyMutationInput, MessageLikeUncheckedUpdateManyInput>
+    /**
+     * Filter which MessageLikes to update
+     */
+    where?: MessageLikeWhereInput
+    /**
+     * Limit how many MessageLikes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * MessageLike upsert
+   */
+  export type MessageLikeUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    /**
+     * The filter to search for the MessageLike to update in case it exists.
+     */
+    where: MessageLikeWhereUniqueInput
+    /**
+     * In case the MessageLike found by the `where` argument doesn't exist, create a new MessageLike with this data.
+     */
+    create: XOR<MessageLikeCreateInput, MessageLikeUncheckedCreateInput>
+    /**
+     * In case the MessageLike was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<MessageLikeUpdateInput, MessageLikeUncheckedUpdateInput>
+  }
+
+  /**
+   * MessageLike delete
+   */
+  export type MessageLikeDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
+    /**
+     * Filter which MessageLike to delete.
+     */
+    where: MessageLikeWhereUniqueInput
+  }
+
+  /**
+   * MessageLike deleteMany
+   */
+  export type MessageLikeDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which MessageLikes to delete
+     */
+    where?: MessageLikeWhereInput
+    /**
+     * Limit how many MessageLikes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * MessageLike without action
+   */
+  export type MessageLikeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the MessageLike
+     */
+    select?: MessageLikeSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the MessageLike
+     */
+    omit?: MessageLikeOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: MessageLikeInclude<ExtArgs> | null
   }
 
 
@@ -4354,6 +5608,14 @@ export namespace Prisma {
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
+
+
+  export const MessageLikeScalarFieldEnum: {
+    userId: 'userId',
+    messageId: 'messageId'
+  };
+
+  export type MessageLikeScalarFieldEnum = (typeof MessageLikeScalarFieldEnum)[keyof typeof MessageLikeScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4461,6 +5723,7 @@ export namespace Prisma {
     text?: StringNullableFilter<"Message"> | string | null
     author_id?: IntNullableFilter<"Message"> | number | null
     users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    likedBy?: MessageLikeListRelationFilter
   }
 
   export type MessageOrderByWithRelationInput = {
@@ -4470,6 +5733,7 @@ export namespace Prisma {
     text?: SortOrderInput | SortOrder
     author_id?: SortOrderInput | SortOrder
     users?: UserOrderByWithRelationInput
+    likedBy?: MessageLikeOrderByRelationAggregateInput
   }
 
   export type MessageWhereUniqueInput = Prisma.AtLeast<{
@@ -4482,6 +5746,7 @@ export namespace Prisma {
     text?: StringNullableFilter<"Message"> | string | null
     author_id?: IntNullableFilter<"Message"> | number | null
     users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
+    likedBy?: MessageLikeListRelationFilter
   }, "id">
 
   export type MessageOrderByWithAggregationInput = {
@@ -4567,6 +5832,7 @@ export namespace Prisma {
     membership_status?: BoolNullableFilter<"User"> | boolean | null
     admin?: BoolNullableFilter<"User"> | boolean | null
     messages?: MessageListRelationFilter
+    likedMessages?: MessageLikeListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -4578,6 +5844,7 @@ export namespace Prisma {
     membership_status?: SortOrderInput | SortOrder
     admin?: SortOrderInput | SortOrder
     messages?: MessageOrderByRelationAggregateInput
+    likedMessages?: MessageLikeOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -4592,6 +5859,7 @@ export namespace Prisma {
     membership_status?: BoolNullableFilter<"User"> | boolean | null
     admin?: BoolNullableFilter<"User"> | boolean | null
     messages?: MessageListRelationFilter
+    likedMessages?: MessageLikeListRelationFilter
   }, "id" | "username">
 
   export type UserOrderByWithAggregationInput = {
@@ -4622,11 +5890,58 @@ export namespace Prisma {
     admin?: BoolNullableWithAggregatesFilter<"User"> | boolean | null
   }
 
+  export type MessageLikeWhereInput = {
+    AND?: MessageLikeWhereInput | MessageLikeWhereInput[]
+    OR?: MessageLikeWhereInput[]
+    NOT?: MessageLikeWhereInput | MessageLikeWhereInput[]
+    userId?: IntFilter<"MessageLike"> | number
+    messageId?: IntFilter<"MessageLike"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    message?: XOR<MessageScalarRelationFilter, MessageWhereInput>
+  }
+
+  export type MessageLikeOrderByWithRelationInput = {
+    userId?: SortOrder
+    messageId?: SortOrder
+    user?: UserOrderByWithRelationInput
+    message?: MessageOrderByWithRelationInput
+  }
+
+  export type MessageLikeWhereUniqueInput = Prisma.AtLeast<{
+    userId_messageId?: MessageLikeUserIdMessageIdCompoundUniqueInput
+    AND?: MessageLikeWhereInput | MessageLikeWhereInput[]
+    OR?: MessageLikeWhereInput[]
+    NOT?: MessageLikeWhereInput | MessageLikeWhereInput[]
+    userId?: IntFilter<"MessageLike"> | number
+    messageId?: IntFilter<"MessageLike"> | number
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    message?: XOR<MessageScalarRelationFilter, MessageWhereInput>
+  }, "userId_messageId">
+
+  export type MessageLikeOrderByWithAggregationInput = {
+    userId?: SortOrder
+    messageId?: SortOrder
+    _count?: MessageLikeCountOrderByAggregateInput
+    _avg?: MessageLikeAvgOrderByAggregateInput
+    _max?: MessageLikeMaxOrderByAggregateInput
+    _min?: MessageLikeMinOrderByAggregateInput
+    _sum?: MessageLikeSumOrderByAggregateInput
+  }
+
+  export type MessageLikeScalarWhereWithAggregatesInput = {
+    AND?: MessageLikeScalarWhereWithAggregatesInput | MessageLikeScalarWhereWithAggregatesInput[]
+    OR?: MessageLikeScalarWhereWithAggregatesInput[]
+    NOT?: MessageLikeScalarWhereWithAggregatesInput | MessageLikeScalarWhereWithAggregatesInput[]
+    userId?: IntWithAggregatesFilter<"MessageLike"> | number
+    messageId?: IntWithAggregatesFilter<"MessageLike"> | number
+  }
+
   export type MessageCreateInput = {
     title?: string | null
     date?: Date | string | null
     text?: string | null
     users?: UserCreateNestedOneWithoutMessagesInput
+    likedBy?: MessageLikeCreateNestedManyWithoutMessageInput
   }
 
   export type MessageUncheckedCreateInput = {
@@ -4635,6 +5950,7 @@ export namespace Prisma {
     date?: Date | string | null
     text?: string | null
     author_id?: number | null
+    likedBy?: MessageLikeUncheckedCreateNestedManyWithoutMessageInput
   }
 
   export type MessageUpdateInput = {
@@ -4642,6 +5958,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateOneWithoutMessagesNestedInput
+    likedBy?: MessageLikeUpdateManyWithoutMessageNestedInput
   }
 
   export type MessageUncheckedUpdateInput = {
@@ -4650,6 +5967,7 @@ export namespace Prisma {
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
     author_id?: NullableIntFieldUpdateOperationsInput | number | null
+    likedBy?: MessageLikeUncheckedUpdateManyWithoutMessageNestedInput
   }
 
   export type MessageCreateManyInput = {
@@ -4731,6 +6049,7 @@ export namespace Prisma {
     membership_status?: boolean | null
     admin?: boolean | null
     messages?: MessageCreateNestedManyWithoutUsersInput
+    likedMessages?: MessageLikeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -4742,6 +6061,7 @@ export namespace Prisma {
     membership_status?: boolean | null
     admin?: boolean | null
     messages?: MessageUncheckedCreateNestedManyWithoutUsersInput
+    likedMessages?: MessageLikeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -4752,6 +6072,7 @@ export namespace Prisma {
     membership_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     messages?: MessageUpdateManyWithoutUsersNestedInput
+    likedMessages?: MessageLikeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -4763,6 +6084,7 @@ export namespace Prisma {
     membership_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
     messages?: MessageUncheckedUpdateManyWithoutUsersNestedInput
+    likedMessages?: MessageLikeUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -4792,6 +6114,40 @@ export namespace Prisma {
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
     membership_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+  }
+
+  export type MessageLikeCreateInput = {
+    user: UserCreateNestedOneWithoutLikedMessagesInput
+    message: MessageCreateNestedOneWithoutLikedByInput
+  }
+
+  export type MessageLikeUncheckedCreateInput = {
+    userId: number
+    messageId: number
+  }
+
+  export type MessageLikeUpdateInput = {
+    user?: UserUpdateOneRequiredWithoutLikedMessagesNestedInput
+    message?: MessageUpdateOneRequiredWithoutLikedByNestedInput
+  }
+
+  export type MessageLikeUncheckedUpdateInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    messageId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MessageLikeCreateManyInput = {
+    userId: number
+    messageId: number
+  }
+
+  export type MessageLikeUpdateManyMutationInput = {
+
+  }
+
+  export type MessageLikeUncheckedUpdateManyInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+    messageId?: IntFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -4847,9 +6203,19 @@ export namespace Prisma {
     isNot?: UserWhereInput | null
   }
 
+  export type MessageLikeListRelationFilter = {
+    every?: MessageLikeWhereInput
+    some?: MessageLikeWhereInput
+    none?: MessageLikeWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
+  }
+
+  export type MessageLikeOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type MessageCountOrderByAggregateInput = {
@@ -5090,10 +6456,64 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type MessageScalarRelationFilter = {
+    is?: MessageWhereInput
+    isNot?: MessageWhereInput
+  }
+
+  export type MessageLikeUserIdMessageIdCompoundUniqueInput = {
+    userId: number
+    messageId: number
+  }
+
+  export type MessageLikeCountOrderByAggregateInput = {
+    userId?: SortOrder
+    messageId?: SortOrder
+  }
+
+  export type MessageLikeAvgOrderByAggregateInput = {
+    userId?: SortOrder
+    messageId?: SortOrder
+  }
+
+  export type MessageLikeMaxOrderByAggregateInput = {
+    userId?: SortOrder
+    messageId?: SortOrder
+  }
+
+  export type MessageLikeMinOrderByAggregateInput = {
+    userId?: SortOrder
+    messageId?: SortOrder
+  }
+
+  export type MessageLikeSumOrderByAggregateInput = {
+    userId?: SortOrder
+    messageId?: SortOrder
+  }
+
   export type UserCreateNestedOneWithoutMessagesInput = {
     create?: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
     connectOrCreate?: UserCreateOrConnectWithoutMessagesInput
     connect?: UserWhereUniqueInput
+  }
+
+  export type MessageLikeCreateNestedManyWithoutMessageInput = {
+    create?: XOR<MessageLikeCreateWithoutMessageInput, MessageLikeUncheckedCreateWithoutMessageInput> | MessageLikeCreateWithoutMessageInput[] | MessageLikeUncheckedCreateWithoutMessageInput[]
+    connectOrCreate?: MessageLikeCreateOrConnectWithoutMessageInput | MessageLikeCreateOrConnectWithoutMessageInput[]
+    createMany?: MessageLikeCreateManyMessageInputEnvelope
+    connect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+  }
+
+  export type MessageLikeUncheckedCreateNestedManyWithoutMessageInput = {
+    create?: XOR<MessageLikeCreateWithoutMessageInput, MessageLikeUncheckedCreateWithoutMessageInput> | MessageLikeCreateWithoutMessageInput[] | MessageLikeUncheckedCreateWithoutMessageInput[]
+    connectOrCreate?: MessageLikeCreateOrConnectWithoutMessageInput | MessageLikeCreateOrConnectWithoutMessageInput[]
+    createMany?: MessageLikeCreateManyMessageInputEnvelope
+    connect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
   }
 
   export type NullableStringFieldUpdateOperationsInput = {
@@ -5114,6 +6534,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutMessagesInput, UserUpdateWithoutMessagesInput>, UserUncheckedUpdateWithoutMessagesInput>
   }
 
+  export type MessageLikeUpdateManyWithoutMessageNestedInput = {
+    create?: XOR<MessageLikeCreateWithoutMessageInput, MessageLikeUncheckedCreateWithoutMessageInput> | MessageLikeCreateWithoutMessageInput[] | MessageLikeUncheckedCreateWithoutMessageInput[]
+    connectOrCreate?: MessageLikeCreateOrConnectWithoutMessageInput | MessageLikeCreateOrConnectWithoutMessageInput[]
+    upsert?: MessageLikeUpsertWithWhereUniqueWithoutMessageInput | MessageLikeUpsertWithWhereUniqueWithoutMessageInput[]
+    createMany?: MessageLikeCreateManyMessageInputEnvelope
+    set?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    disconnect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    delete?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    connect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    update?: MessageLikeUpdateWithWhereUniqueWithoutMessageInput | MessageLikeUpdateWithWhereUniqueWithoutMessageInput[]
+    updateMany?: MessageLikeUpdateManyWithWhereWithoutMessageInput | MessageLikeUpdateManyWithWhereWithoutMessageInput[]
+    deleteMany?: MessageLikeScalarWhereInput | MessageLikeScalarWhereInput[]
+  }
+
   export type IntFieldUpdateOperationsInput = {
     set?: number
     increment?: number
@@ -5128,6 +6562,20 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
+  }
+
+  export type MessageLikeUncheckedUpdateManyWithoutMessageNestedInput = {
+    create?: XOR<MessageLikeCreateWithoutMessageInput, MessageLikeUncheckedCreateWithoutMessageInput> | MessageLikeCreateWithoutMessageInput[] | MessageLikeUncheckedCreateWithoutMessageInput[]
+    connectOrCreate?: MessageLikeCreateOrConnectWithoutMessageInput | MessageLikeCreateOrConnectWithoutMessageInput[]
+    upsert?: MessageLikeUpsertWithWhereUniqueWithoutMessageInput | MessageLikeUpsertWithWhereUniqueWithoutMessageInput[]
+    createMany?: MessageLikeCreateManyMessageInputEnvelope
+    set?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    disconnect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    delete?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    connect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    update?: MessageLikeUpdateWithWhereUniqueWithoutMessageInput | MessageLikeUpdateWithWhereUniqueWithoutMessageInput[]
+    updateMany?: MessageLikeUpdateManyWithWhereWithoutMessageInput | MessageLikeUpdateManyWithWhereWithoutMessageInput[]
+    deleteMany?: MessageLikeScalarWhereInput | MessageLikeScalarWhereInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -5145,11 +6593,25 @@ export namespace Prisma {
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
   }
 
+  export type MessageLikeCreateNestedManyWithoutUserInput = {
+    create?: XOR<MessageLikeCreateWithoutUserInput, MessageLikeUncheckedCreateWithoutUserInput> | MessageLikeCreateWithoutUserInput[] | MessageLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageLikeCreateOrConnectWithoutUserInput | MessageLikeCreateOrConnectWithoutUserInput[]
+    createMany?: MessageLikeCreateManyUserInputEnvelope
+    connect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+  }
+
   export type MessageUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<MessageCreateWithoutUsersInput, MessageUncheckedCreateWithoutUsersInput> | MessageCreateWithoutUsersInput[] | MessageUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutUsersInput | MessageCreateOrConnectWithoutUsersInput[]
     createMany?: MessageCreateManyUsersInputEnvelope
     connect?: MessageWhereUniqueInput | MessageWhereUniqueInput[]
+  }
+
+  export type MessageLikeUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<MessageLikeCreateWithoutUserInput, MessageLikeUncheckedCreateWithoutUserInput> | MessageLikeCreateWithoutUserInput[] | MessageLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageLikeCreateOrConnectWithoutUserInput | MessageLikeCreateOrConnectWithoutUserInput[]
+    createMany?: MessageLikeCreateManyUserInputEnvelope
+    connect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
   }
 
   export type NullableBoolFieldUpdateOperationsInput = {
@@ -5170,6 +6632,20 @@ export namespace Prisma {
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
   }
 
+  export type MessageLikeUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MessageLikeCreateWithoutUserInput, MessageLikeUncheckedCreateWithoutUserInput> | MessageLikeCreateWithoutUserInput[] | MessageLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageLikeCreateOrConnectWithoutUserInput | MessageLikeCreateOrConnectWithoutUserInput[]
+    upsert?: MessageLikeUpsertWithWhereUniqueWithoutUserInput | MessageLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MessageLikeCreateManyUserInputEnvelope
+    set?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    disconnect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    delete?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    connect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    update?: MessageLikeUpdateWithWhereUniqueWithoutUserInput | MessageLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MessageLikeUpdateManyWithWhereWithoutUserInput | MessageLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MessageLikeScalarWhereInput | MessageLikeScalarWhereInput[]
+  }
+
   export type MessageUncheckedUpdateManyWithoutUsersNestedInput = {
     create?: XOR<MessageCreateWithoutUsersInput, MessageUncheckedCreateWithoutUsersInput> | MessageCreateWithoutUsersInput[] | MessageUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: MessageCreateOrConnectWithoutUsersInput | MessageCreateOrConnectWithoutUsersInput[]
@@ -5182,6 +6658,48 @@ export namespace Prisma {
     update?: MessageUpdateWithWhereUniqueWithoutUsersInput | MessageUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: MessageUpdateManyWithWhereWithoutUsersInput | MessageUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: MessageScalarWhereInput | MessageScalarWhereInput[]
+  }
+
+  export type MessageLikeUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<MessageLikeCreateWithoutUserInput, MessageLikeUncheckedCreateWithoutUserInput> | MessageLikeCreateWithoutUserInput[] | MessageLikeUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: MessageLikeCreateOrConnectWithoutUserInput | MessageLikeCreateOrConnectWithoutUserInput[]
+    upsert?: MessageLikeUpsertWithWhereUniqueWithoutUserInput | MessageLikeUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: MessageLikeCreateManyUserInputEnvelope
+    set?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    disconnect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    delete?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    connect?: MessageLikeWhereUniqueInput | MessageLikeWhereUniqueInput[]
+    update?: MessageLikeUpdateWithWhereUniqueWithoutUserInput | MessageLikeUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: MessageLikeUpdateManyWithWhereWithoutUserInput | MessageLikeUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: MessageLikeScalarWhereInput | MessageLikeScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutLikedMessagesInput = {
+    create?: XOR<UserCreateWithoutLikedMessagesInput, UserUncheckedCreateWithoutLikedMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLikedMessagesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type MessageCreateNestedOneWithoutLikedByInput = {
+    create?: XOR<MessageCreateWithoutLikedByInput, MessageUncheckedCreateWithoutLikedByInput>
+    connectOrCreate?: MessageCreateOrConnectWithoutLikedByInput
+    connect?: MessageWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutLikedMessagesNestedInput = {
+    create?: XOR<UserCreateWithoutLikedMessagesInput, UserUncheckedCreateWithoutLikedMessagesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutLikedMessagesInput
+    upsert?: UserUpsertWithoutLikedMessagesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutLikedMessagesInput, UserUpdateWithoutLikedMessagesInput>, UserUncheckedUpdateWithoutLikedMessagesInput>
+  }
+
+  export type MessageUpdateOneRequiredWithoutLikedByNestedInput = {
+    create?: XOR<MessageCreateWithoutLikedByInput, MessageUncheckedCreateWithoutLikedByInput>
+    connectOrCreate?: MessageCreateOrConnectWithoutLikedByInput
+    upsert?: MessageUpsertWithoutLikedByInput
+    connect?: MessageWhereUniqueInput
+    update?: XOR<XOR<MessageUpdateToOneWithWhereWithoutLikedByInput, MessageUpdateWithoutLikedByInput>, MessageUncheckedUpdateWithoutLikedByInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -5392,6 +6910,7 @@ export namespace Prisma {
     lastname?: string | null
     membership_status?: boolean | null
     admin?: boolean | null
+    likedMessages?: MessageLikeCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutMessagesInput = {
@@ -5402,11 +6921,30 @@ export namespace Prisma {
     lastname?: string | null
     membership_status?: boolean | null
     admin?: boolean | null
+    likedMessages?: MessageLikeUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutMessagesInput = {
     where: UserWhereUniqueInput
     create: XOR<UserCreateWithoutMessagesInput, UserUncheckedCreateWithoutMessagesInput>
+  }
+
+  export type MessageLikeCreateWithoutMessageInput = {
+    user: UserCreateNestedOneWithoutLikedMessagesInput
+  }
+
+  export type MessageLikeUncheckedCreateWithoutMessageInput = {
+    userId: number
+  }
+
+  export type MessageLikeCreateOrConnectWithoutMessageInput = {
+    where: MessageLikeWhereUniqueInput
+    create: XOR<MessageLikeCreateWithoutMessageInput, MessageLikeUncheckedCreateWithoutMessageInput>
+  }
+
+  export type MessageLikeCreateManyMessageInputEnvelope = {
+    data: MessageLikeCreateManyMessageInput | MessageLikeCreateManyMessageInput[]
+    skipDuplicates?: boolean
   }
 
   export type UserUpsertWithoutMessagesInput = {
@@ -5427,6 +6965,7 @@ export namespace Prisma {
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
     membership_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    likedMessages?: MessageLikeUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutMessagesInput = {
@@ -5437,12 +6976,38 @@ export namespace Prisma {
     lastname?: NullableStringFieldUpdateOperationsInput | string | null
     membership_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
     admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    likedMessages?: MessageLikeUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type MessageLikeUpsertWithWhereUniqueWithoutMessageInput = {
+    where: MessageLikeWhereUniqueInput
+    update: XOR<MessageLikeUpdateWithoutMessageInput, MessageLikeUncheckedUpdateWithoutMessageInput>
+    create: XOR<MessageLikeCreateWithoutMessageInput, MessageLikeUncheckedCreateWithoutMessageInput>
+  }
+
+  export type MessageLikeUpdateWithWhereUniqueWithoutMessageInput = {
+    where: MessageLikeWhereUniqueInput
+    data: XOR<MessageLikeUpdateWithoutMessageInput, MessageLikeUncheckedUpdateWithoutMessageInput>
+  }
+
+  export type MessageLikeUpdateManyWithWhereWithoutMessageInput = {
+    where: MessageLikeScalarWhereInput
+    data: XOR<MessageLikeUpdateManyMutationInput, MessageLikeUncheckedUpdateManyWithoutMessageInput>
+  }
+
+  export type MessageLikeScalarWhereInput = {
+    AND?: MessageLikeScalarWhereInput | MessageLikeScalarWhereInput[]
+    OR?: MessageLikeScalarWhereInput[]
+    NOT?: MessageLikeScalarWhereInput | MessageLikeScalarWhereInput[]
+    userId?: IntFilter<"MessageLike"> | number
+    messageId?: IntFilter<"MessageLike"> | number
   }
 
   export type MessageCreateWithoutUsersInput = {
     title?: string | null
     date?: Date | string | null
     text?: string | null
+    likedBy?: MessageLikeCreateNestedManyWithoutMessageInput
   }
 
   export type MessageUncheckedCreateWithoutUsersInput = {
@@ -5450,6 +7015,7 @@ export namespace Prisma {
     title?: string | null
     date?: Date | string | null
     text?: string | null
+    likedBy?: MessageLikeUncheckedCreateNestedManyWithoutMessageInput
   }
 
   export type MessageCreateOrConnectWithoutUsersInput = {
@@ -5459,6 +7025,24 @@ export namespace Prisma {
 
   export type MessageCreateManyUsersInputEnvelope = {
     data: MessageCreateManyUsersInput | MessageCreateManyUsersInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type MessageLikeCreateWithoutUserInput = {
+    message: MessageCreateNestedOneWithoutLikedByInput
+  }
+
+  export type MessageLikeUncheckedCreateWithoutUserInput = {
+    messageId: number
+  }
+
+  export type MessageLikeCreateOrConnectWithoutUserInput = {
+    where: MessageLikeWhereUniqueInput
+    create: XOR<MessageLikeCreateWithoutUserInput, MessageLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type MessageLikeCreateManyUserInputEnvelope = {
+    data: MessageLikeCreateManyUserInput | MessageLikeCreateManyUserInput[]
     skipDuplicates?: boolean
   }
 
@@ -5489,6 +7073,142 @@ export namespace Prisma {
     author_id?: IntNullableFilter<"Message"> | number | null
   }
 
+  export type MessageLikeUpsertWithWhereUniqueWithoutUserInput = {
+    where: MessageLikeWhereUniqueInput
+    update: XOR<MessageLikeUpdateWithoutUserInput, MessageLikeUncheckedUpdateWithoutUserInput>
+    create: XOR<MessageLikeCreateWithoutUserInput, MessageLikeUncheckedCreateWithoutUserInput>
+  }
+
+  export type MessageLikeUpdateWithWhereUniqueWithoutUserInput = {
+    where: MessageLikeWhereUniqueInput
+    data: XOR<MessageLikeUpdateWithoutUserInput, MessageLikeUncheckedUpdateWithoutUserInput>
+  }
+
+  export type MessageLikeUpdateManyWithWhereWithoutUserInput = {
+    where: MessageLikeScalarWhereInput
+    data: XOR<MessageLikeUpdateManyMutationInput, MessageLikeUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserCreateWithoutLikedMessagesInput = {
+    username?: string | null
+    password?: string | null
+    firstname?: string | null
+    lastname?: string | null
+    membership_status?: boolean | null
+    admin?: boolean | null
+    messages?: MessageCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserUncheckedCreateWithoutLikedMessagesInput = {
+    id?: number
+    username?: string | null
+    password?: string | null
+    firstname?: string | null
+    lastname?: string | null
+    membership_status?: boolean | null
+    admin?: boolean | null
+    messages?: MessageUncheckedCreateNestedManyWithoutUsersInput
+  }
+
+  export type UserCreateOrConnectWithoutLikedMessagesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutLikedMessagesInput, UserUncheckedCreateWithoutLikedMessagesInput>
+  }
+
+  export type MessageCreateWithoutLikedByInput = {
+    title?: string | null
+    date?: Date | string | null
+    text?: string | null
+    users?: UserCreateNestedOneWithoutMessagesInput
+  }
+
+  export type MessageUncheckedCreateWithoutLikedByInput = {
+    id?: number
+    title?: string | null
+    date?: Date | string | null
+    text?: string | null
+    author_id?: number | null
+  }
+
+  export type MessageCreateOrConnectWithoutLikedByInput = {
+    where: MessageWhereUniqueInput
+    create: XOR<MessageCreateWithoutLikedByInput, MessageUncheckedCreateWithoutLikedByInput>
+  }
+
+  export type UserUpsertWithoutLikedMessagesInput = {
+    update: XOR<UserUpdateWithoutLikedMessagesInput, UserUncheckedUpdateWithoutLikedMessagesInput>
+    create: XOR<UserCreateWithoutLikedMessagesInput, UserUncheckedCreateWithoutLikedMessagesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutLikedMessagesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutLikedMessagesInput, UserUncheckedUpdateWithoutLikedMessagesInput>
+  }
+
+  export type UserUpdateWithoutLikedMessagesInput = {
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    membership_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    messages?: MessageUpdateManyWithoutUsersNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutLikedMessagesInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    username?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    firstname?: NullableStringFieldUpdateOperationsInput | string | null
+    lastname?: NullableStringFieldUpdateOperationsInput | string | null
+    membership_status?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    admin?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    messages?: MessageUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type MessageUpsertWithoutLikedByInput = {
+    update: XOR<MessageUpdateWithoutLikedByInput, MessageUncheckedUpdateWithoutLikedByInput>
+    create: XOR<MessageCreateWithoutLikedByInput, MessageUncheckedCreateWithoutLikedByInput>
+    where?: MessageWhereInput
+  }
+
+  export type MessageUpdateToOneWithWhereWithoutLikedByInput = {
+    where?: MessageWhereInput
+    data: XOR<MessageUpdateWithoutLikedByInput, MessageUncheckedUpdateWithoutLikedByInput>
+  }
+
+  export type MessageUpdateWithoutLikedByInput = {
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    users?: UserUpdateOneWithoutMessagesNestedInput
+  }
+
+  export type MessageUncheckedUpdateWithoutLikedByInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    text?: NullableStringFieldUpdateOperationsInput | string | null
+    author_id?: NullableIntFieldUpdateOperationsInput | number | null
+  }
+
+  export type MessageLikeCreateManyMessageInput = {
+    userId: number
+  }
+
+  export type MessageLikeUpdateWithoutMessageInput = {
+    user?: UserUpdateOneRequiredWithoutLikedMessagesNestedInput
+  }
+
+  export type MessageLikeUncheckedUpdateWithoutMessageInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MessageLikeUncheckedUpdateManyWithoutMessageInput = {
+    userId?: IntFieldUpdateOperationsInput | number
+  }
+
   export type MessageCreateManyUsersInput = {
     id?: number
     title?: string | null
@@ -5496,10 +7216,15 @@ export namespace Prisma {
     text?: string | null
   }
 
+  export type MessageLikeCreateManyUserInput = {
+    messageId: number
+  }
+
   export type MessageUpdateWithoutUsersInput = {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    likedBy?: MessageLikeUpdateManyWithoutMessageNestedInput
   }
 
   export type MessageUncheckedUpdateWithoutUsersInput = {
@@ -5507,6 +7232,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    likedBy?: MessageLikeUncheckedUpdateManyWithoutMessageNestedInput
   }
 
   export type MessageUncheckedUpdateManyWithoutUsersInput = {
@@ -5514,6 +7240,18 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type MessageLikeUpdateWithoutUserInput = {
+    message?: MessageUpdateOneRequiredWithoutLikedByNestedInput
+  }
+
+  export type MessageLikeUncheckedUpdateWithoutUserInput = {
+    messageId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type MessageLikeUncheckedUpdateManyWithoutUserInput = {
+    messageId?: IntFieldUpdateOperationsInput | number
   }
 
 

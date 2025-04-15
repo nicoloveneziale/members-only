@@ -3,36 +3,36 @@ body {
   font-family: "Open Sans", sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f0f2f5; /* Light background, like Facebook */
+  background-color: #f0f2f5;
   color: #333;
   line-height: 1.6;
 }
 
 .container {
-  max-width: 1200px; /* Wider container */
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
 /* Header Styles */
 header {
-  background-color: #ffffff; /* White header */
+  background-color: #ffffff;
   padding: 15px 0;
   border-bottom: 1px solid #ddd;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 header .container {
   display: flex;
-  justify-content: space-between; /* Space out elements */
+  justify-content: space-between;
   align-items: center;
 }
 
 .site-title {
   margin: 0;
-  font-size: 28px; /* Larger title */
-  color: #1877f2; /* Facebook blue */
-  font-weight: 700; /* Make the title bold */
+  font-size: 28px;
+  color: #1877f2;
+  font-weight: 700;
 }
 
 .welcome-title {
@@ -44,7 +44,7 @@ header .container {
 
 .username {
   font-weight: 700;
-  color: #1877f2; /* Facebook blue */
+  color: #1877f2;
 }
 
 /* Navigation Styles */
@@ -53,16 +53,16 @@ nav ul {
   margin: 0;
   padding: 0;
   display: flex;
-  align-items: center; /* Vertically center items */
+  align-items: center;
 }
 
 nav ul li {
-  margin-left: 25px; /* More space between nav items */
+  margin-left: 25px;
 }
 
 nav ul li a {
   text-decoration: none;
-  color: #65676b; /* Darker gray */
+  color: #65676b;
   font-weight: 600;
   padding: 10px 15px;
   border-radius: 8px;
@@ -72,12 +72,12 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  background-color: #e9ebee; /* Light gray hover */
-  color: #1877f2; /* Facebook blue on hover */
+  background-color: #e9ebee;
+  color: #1877f2;
 }
 
 .auth-nav ul li a {
-  background-color: #1877f2; /* Facebook blue */
+  background-color: #1877f2;
   color: white;
   border-radius: 8px;
   padding: 12px 20px;
@@ -85,7 +85,7 @@ nav ul li a:hover {
 }
 
 .auth-nav ul li a:hover {
-  background-color: #1665ac; /* Darker blue hover */
+  background-color: #1665ac;
 }
 
 .user-nav ul li a {
@@ -103,32 +103,32 @@ nav ul li a:hover {
 }
 
 .message-card {
-  background-color: #fff; /* White message cards */
+  background-color: #fff;
   padding: 20px;
   margin-bottom: 20px;
-  border-radius: 10px; /* More rounded corners */
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Slightly stronger shadow */
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   transition:
     transform 0.2s ease,
-    box-shadow 0.2s ease; /* Add box-shadow transition */
+    box-shadow 0.2s ease;
 }
 
 .message-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1); /* Increased shadow on hover */
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
 .message-title {
   margin: 0 0 12px 0;
-  font-size: 24px; /* Larger title */
-  color: #222; /* Very dark gray */
+  font-size: 24px;
+  color: #222;
   font-weight: 600;
 }
 
 .message-text {
-  margin: 0 0 15px 0; /* Increased margin */
-  color: #444; /* Slightly darker text */
-  line-height: 1.7; /* Increased line height for readability */
+  margin: 0 0 15px 0;
+  color: #444;
+  line-height: 1.7;
 }
 
 .message-info {
@@ -137,17 +137,17 @@ nav ul li a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 15px; /* Increased margin */
+  margin-top: 15px;
 }
 
 .message-date {
   margin-right: auto;
-  color: #8a8d91; /* More muted color for date */
+  color: #8a8d91;
 }
 
 .message-author {
   font-weight: 600;
-  color: #1877f2; /* Facebook blue */
+  color: #1877f2;
 }
 
 /* Footer Styles */
@@ -158,13 +158,9 @@ nav ul li a:hover {
   border-top: 1px solid #ddd;
   color: #65676b;
   text-align: center;
-}
-
-.site-footer .container {
   font-size: 16px;
 }
 
-/* General Form Styles */
 /* General Form Styles */
 .form-container {
   background-color: #ffffff;
@@ -205,13 +201,13 @@ nav ul li a:hover {
   border-radius: 8px;
   font-size: 16px;
   transition: border-color 0.3s ease;
-  box-sizing: border-box; /* Ensure padding doesn't affect width */
+  box-sizing: border-box;
 }
 
 .form-input:focus {
   outline: none;
-  border-color: #1877f2; /* Facebook blue */
-  box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2); /* Light blue shadow */
+  border-color: #1877f2;
+  box-shadow: 0 0 0 2px rgba(24, 119, 242, 0.2);
 }
 
 .form-errors {
@@ -228,12 +224,22 @@ nav ul li a:hover {
   margin-bottom: 5px;
 }
 
+.form-error {
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #fdebeb;
+  border: 1px solid #fccaca;
+  border-radius: 8px;
+  color: #d9534f;
+  font-size: 16px;
+}
+
 .form-button {
   width: 100%;
   padding: 12px 20px;
   border: none;
   border-radius: 8px;
-  background-color: #1877f2; /* Facebook blue */
+  background-color: #1877f2;
   color: white;
   font-size: 18px;
   font-weight: 600;
@@ -242,7 +248,7 @@ nav ul li a:hover {
 }
 
 .form-button:hover {
-  background-color: #1665ac; /* Darker blue hover */
+  background-color: #1665ac;
 }
 
 .form-footer {
@@ -262,15 +268,24 @@ nav ul li a:hover {
   text-decoration: underline;
 }
 
-/* Specific to Login Form */
-.login-form-container {
-  background-color: #ffffff;
-}
-
+/* Specific Form Titles */
 .login-title {
   color: #1877f2;
 }
 
+.register-title {
+  color: #1877f2;
+}
+
+.join-title {
+  color: #1877f2;
+}
+
+.create-message-title {
+  color: #1877f2;
+}
+
+/* Specific Form Buttons */
 .login-button {
   background-color: #1877f2;
 }
@@ -279,23 +294,12 @@ nav ul li a:hover {
   background-color: #1665ac;
 }
 
-.register-link {
-  color: #1877f2;
-  font-weight: 600;
-  text-decoration: none;
+.register-button {
+  background-color: #1877f2;
 }
 
-.register-link:hover {
-  text-decoration: underline;
-}
-
-/* Specific to Join Club Form */
-.join-form-container {
-  background-color: #ffffff;
-}
-
-.join-title {
-  color: #1877f2;
+.register-button:hover {
+  background-color: #1665ac;
 }
 
 .join-button {
@@ -306,20 +310,11 @@ nav ul li a:hover {
   background-color: #1665ac;
 }
 
-/* Specific to Register Form */
-.register-form-container {
-  background-color: #ffffff;
-}
-
-.register-title {
-  color: #1877f2;
-}
-
-.register-button {
+.create-message-button {
   background-color: #1877f2;
 }
 
-.register-button:hover {
+.create-message-button:hover {
   background-color: #1665ac;
 }
 

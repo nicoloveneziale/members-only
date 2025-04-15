@@ -16,7 +16,19 @@ function getCreateMessage(req, res) {
   res.render("createMessage", { errors: null });
 }
 
+async function postMessageLike(req, res) {
+  try {
+    const messageId = parseInt(req.params.id);
+    const userId = req.user.id;
+    res.redirect("/");
+    await db.likeMessage(messageId, userId);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 module.exports = {
   postCreateMessage,
   getCreateMessage,
+  postMessageLike,
 };

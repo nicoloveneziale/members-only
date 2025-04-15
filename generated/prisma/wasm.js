@@ -142,6 +142,11 @@ exports.Prisma.UserScalarFieldEnum = {
   admin: 'admin'
 };
 
+exports.Prisma.MessageLikeScalarFieldEnum = {
+  userId: 'userId',
+  messageId: 'messageId'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -161,7 +166,8 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   Message: 'Message',
   session: 'session',
-  User: 'User'
+  User: 'User',
+  MessageLike: 'MessageLike'
 };
 
 /**
