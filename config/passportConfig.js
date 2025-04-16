@@ -1,37 +1,25 @@
 const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
+const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const db = require("../db/queries");
-const bcrypt = require("bcryptjs");
 
-const verifyCallback = async (username, password, done) => {
-  try {
-    const user = await db.findUserFromUsername(username);
-    if (!user) {
-      return done(null, false, { message: "Username not found" });
-    }
+const JWT_SECRET = process.env.JWT_SECRET || "your_jwt_secret"; // Use .env in production
 
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) {
-      return done(null, false, { message: "Incorrect password" });
-    }
-
-    return done(null, user);
-  } catch (err) {
-    return done(err);
-  }
+const opts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(), // looks for token in Authorization header: Bearer <token>
+  secretOrKey: JWT_SECRET,
 };
 
-passport.use(new LocalStrategy(verifyCallback));
-
-passport.serializeUser((user, done) => {
-  done(null, user.id);
-});
-
-passport.deserializeUser(async (id, done) => {
-  try {
-    const user = await db.getUser(id);
-    done(null, user);
-  } catch (err) {
-    done(err);
-  }
-});
+passport.use(
+  new JwtStrategy(opts, async (jwt_payload, done) => {
+    try {
+      const user = await db.getUser(jwt_payload.id);
+      if (user) {
+        return done(null, user);
+      } else {
+        return done(null, false);
+      }
+    } catch (err) {
+      return done(err, false);
+    }
+  }),
+);
