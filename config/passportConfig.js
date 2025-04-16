@@ -6,7 +6,6 @@ const bcrypt = require("bcryptjs");
 const verifyCallback = async (username, password, done) => {
   try {
     const user = await db.findUserFromUsername(username);
-    console.log(user);
     if (!user) {
       return done(null, false, { message: "Username not found" });
     }

@@ -42,6 +42,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="page-wrapper">
     <header>
         <div class="container">
             <% if (user) { %>
@@ -78,13 +79,13 @@
                             <span class="message-date" data-date="<%= message.date %>"></span>
                             <span class="message-author">Posted by <%= message.users.username + (message.users.membership_status ? " (member)" : "") %></span>
                         </div>
-
+                    <% } %>
+                    <% if (user) { %>
                         <div class="like-section">
                             <form action="/messages/<%= message.id %>/like" method="POST" class="like-form">
-                                <% console.log(message) %>
                                 <button type="submit" class="like-button">❤️ Like (<%= message._count?.likedBy || 0 %>)</button>
-                        </form>
-                    </div>
+                            </form>
+                        </div>
                     <% } %>
                 </div>
             <% }) %>
@@ -96,5 +97,6 @@
             <p>&copy; 2025 Members Only.  Connect with others!</p>
         </div>
     </footer>
+    </div>
 </body>
 </html>

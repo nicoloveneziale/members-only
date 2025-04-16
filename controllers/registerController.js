@@ -47,10 +47,20 @@ const postRegister = [
         req.body.firstname,
         req.body.lastname,
       );
-      res.redirect("/");
+
+      const user = await db.findUserFromUsername(req.body.username);
+
+      if (!user) {
+        return res.status(500).send("User registration failed.");
+      }
+
+      req.login(user, (err) => {
+        if (err) return next(err);
+        return res.redirect("/");
+      });
+      res.next();
     } catch (error) {
       console.log(error);
-      next(error);
     }
   },
 ];

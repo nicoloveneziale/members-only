@@ -2,6 +2,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   margin: 0;
+  height: 100%;
   padding: 0;
   background-color: #f0f2f5;
   color: #333;
@@ -159,6 +160,11 @@ nav ul li a:hover {
   color: #65676b;
   text-align: center;
   font-size: 16px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10;
 }
 
 /* General Form Styles */
