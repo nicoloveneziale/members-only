@@ -7,7 +7,7 @@ async function postJoin(req, res, next) {
       await db.updateMember(req.user.id);
       res.redirect("/");
     } else {
-      return res.status(400).render("join", { error: "Incorrect passcode" });
+      return res.status(400).json({ error: "Incorrect passcode" });
     }
   } catch (err) {
     console.log(err);

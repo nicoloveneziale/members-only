@@ -19,14 +19,10 @@ async function postLogin(req, res) {
     res.json({ token });
   } catch (err) {
     console.log(err);
+    res.json(err);
   }
-}
-
-function getLogin(req, res) {
-  res.render("login");
 }
 
 module.exports = {
   postLogin,
-  getLogin,
 };

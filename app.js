@@ -1,20 +1,17 @@
-const path = require("node:path");
 const express = require("express");
 const router = require("./routes/indexRouter");
-const assetsPath = path.join(__dirname, "public");
 const sessionConfig = require("./config/sessionConfig");
 const passport = require("passport");
-
+const bodyParser = require("body-parser");
+const cors = require("cors");
 require("dotenv").config();
 
 //Express setup
 const app = express();
 
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "ejs");
-
+app.use(cors());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(assetsPath)); //  Serve static files
 app.use(sessionConfig());
 app.use(passport.initialize());
 app.use(passport.session());

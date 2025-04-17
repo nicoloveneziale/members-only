@@ -1,6 +1,8 @@
 const db = require("../db/queries");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
+require("dotenv").config();
 
 const validateUser = [
   body("firstname")
@@ -34,11 +36,11 @@ const validateUser = [
 
 const postRegister = [
   validateUser,
-  async (req, res, next) => {
+  async (req, res) => {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
-        return res.status(400).render("register", { errors: errors.array() });
+        return res.status(400).json({ errors: errors.array() });
       }
       const encryptedPassword = await bcrypt.hash(req.body.password, 10);
       await db.createUser(
@@ -51,25 +53,30 @@ const postRegister = [
       const user = await db.findUserFromUsername(req.body.username);
 
       if (!user) {
-        return res.status(500).send("User registration failed.");
+        return res.status(500).json({ error: "User registration failed" });
       }
 
-      req.login(user, (err) => {
-        if (err) return next(err);
-        return res.redirect("/");
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
       });
-      res.next();
+
+      res.status(201).json({
+        message: "User registered successfully",
+        token,
+        user: {
+          id: user.id,
+          username: user.username,
+          firstname: user.firstname,
+          lastname: user.lastname,
+        },
+      });
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      res.status(500).json({ error: "Internal server error" });
     }
   },
 ];
 
-async function getRegister(req, res) {
-  res.render("register");
-}
-
 module.exports = {
   postRegister,
-  getRegister,
 };

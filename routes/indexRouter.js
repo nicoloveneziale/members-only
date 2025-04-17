@@ -11,20 +11,16 @@ const ensureJWT = passport.authenticate("jwt", { session: false });
 // POST routes
 router.post("/login", loginController.postLogin);
 
-router.post("/messages/create", messageController.postCreateMessage);
+router.post("/messages/create", ensureJWT, messageController.postCreateMessage);
 
 router.post("/register", registerController.postRegister);
 
-router.post("/join", joinController.postJoin);
+router.post("/join", ensureJWT, joinController.postJoin);
 
-router.post("/messages/:id/like", messageController.postMessageLike);
+router.post("/messages/:id/like", ensureJWT, messageController.postMessageLike);
 
 // GET routes
 router.get("/", indexController.getIndex);
-
-router.get("/register", registerController.getRegister);
-
-router.get("/login", loginController.getLogin);
 
 router.get("/logout", ensureJWT, (req, res, next) => {
   req.logout((err) => {
@@ -35,8 +31,8 @@ router.get("/logout", ensureJWT, (req, res, next) => {
   });
 });
 
-router.get("/join", ensureJWT, joinController.getJoin);
+router.get("/join", ensureJWT);
 
-router.get("/messages/create", ensureJWT, messageController.getCreateMessage);
+router.get("/messages/create", ensureJWT);
 
 module.exports = router;

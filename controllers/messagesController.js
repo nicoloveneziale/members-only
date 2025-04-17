@@ -1,34 +1,35 @@
 const db = require("../db/queries");
 
-async function postCreateMessage(req, res, next) {
+async function postCreateMessage(req, res) {
   try {
     const { title, text } = req.body;
     const now = new Date();
-    await db.createMessage(title, now, text, req.user.id);
-    res.redirect("/");
+    const message = await db.createMessage(title, now, text, req.user.id);
+    res.status(201).json({
+      message: "Message created successfully",
+      data: message,
+    });
   } catch (err) {
     console.log(err);
-    next(err);
+    res.status(500).json({ error: "Failed to create message" });
   }
-}
-
-function getCreateMessage(req, res) {
-  res.render("createMessage", { errors: null });
 }
 
 async function postMessageLike(req, res) {
   try {
-    const messageId = parseInt(req.params.id);
+    const messageId = parseInt(req.params.id, 10);
     const userId = req.user.id;
-    res.redirect("/");
+
     await db.likeMessage(messageId, userId);
+
+    res.status(200).json({ message: "Message liked" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    res.status(500).json({ error: "Failed to like message" });
   }
 }
 
 module.exports = {
   postCreateMessage,
-  getCreateMessage,
   postMessageLike,
 };
