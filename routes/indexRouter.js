@@ -32,4 +32,8 @@ router.get("/messages/:id/like", ensureJWT, messageController.getMessageLike);
 
 router.get("/messages/:sortBy", messageController.getMessages);
 
+// DELETE routes
+
+router.delete("/messages/:id", ensureJWT, messageController.deleteMessage);
+
 module.exports = router;

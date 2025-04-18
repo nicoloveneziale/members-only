@@ -3,6 +3,7 @@ const router = require("./routes/indexRouter");
 const sessionConfig = require("./config/sessionConfig");
 const passport = require("passport");
 const bodyParser = require("body-parser");
+const path = require("path");
 const cors = require("cors");
 require("dotenv").config();
 

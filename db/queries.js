@@ -165,6 +165,47 @@ async function getMessageLike(messageId, userId) {
   return messageLike;
 }
 
+async function getMessage(messageId) {
+  const message = await prisma.message.findUnique({
+    where: {
+      id: messageId,
+    },
+    include: {
+      users: {
+        select: {
+          id: true,
+        },
+      },
+    },
+  });
+  return message;
+}
+
+async function deleteMessage(messageId) {
+  try {
+    const message = await prisma.message.findUnique({
+      where: {
+        id: messageId,
+      },
+    });
+
+    if (!message) {
+      throw new Error("Message not found");
+    }
+
+    await prisma.message.delete({
+      where: {
+        id: messageId,
+      },
+    });
+
+    return { message: "Message deleted successfully" };
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
 module.exports = {
   createUser,
   findUserFromUsername,
@@ -174,4 +215,6 @@ module.exports = {
   getAllMessages,
   likeMessage,
   getMessageLike,
+  getMessage,
+  deleteMessage,
 };

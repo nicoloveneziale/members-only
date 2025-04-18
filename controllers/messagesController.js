@@ -61,9 +61,25 @@ async function getMessageLike(req, res) {
   }
 }
 
+async function deleteMessage(req, res) {
+  try {
+    const messageId = parseInt(req.params.id, 10);
+    const userId = req.user.id;
+    if (userId != (await db.getMessage(messageId)).author_id)
+      return res.status(401).json({ error: "Cannot delete other users post" });
+    console.log("fine");
+    db.deleteMessage(messageId);
+    res.json({ message: "Message deleted" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to delete message" });
+  }
+}
+
 module.exports = {
   postCreateMessage,
   postMessageLike,
   getMessages,
   getMessageLike,
+  deleteMessage,
 };
