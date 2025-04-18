@@ -23,6 +23,8 @@ router.post("/messages/:id/like", ensureJWT, messageController.postMessageLike);
 // GET routes
 router.get("/api/me", ensureJWT, userController.getCurrentUser);
 
+router.get("/messages/:id/like", ensureJWT, messageController.getMessageLike);
+
 router.get("/", indexController.getIndex);
 
 module.exports = router;

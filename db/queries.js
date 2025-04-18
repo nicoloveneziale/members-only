@@ -136,6 +136,15 @@ async function likeMessage(messageId, userId) {
   }
 }
 
+async function getMessageLike(messageId, userId) {
+  const messageLike = await prisma.messageLike.findUnique({
+    where: {
+      userId_messageId: { userId, messageId },
+    },
+  });
+  return messageLike;
+}
+
 module.exports = {
   createUser,
   findUserFromUsername,
@@ -144,4 +153,5 @@ module.exports = {
   createMessage,
   getAllMessages,
   likeMessage,
+  getMessageLike,
 };

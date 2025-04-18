@@ -29,7 +29,23 @@ async function postMessageLike(req, res) {
   }
 }
 
+async function getMessageLike(req, res) {
+  try {
+    const messageId = parseInt(req.params.id, 10);
+    const userId = req.user.id;
+
+    const like = await db.getMessageLike(messageId, userId);
+
+    if (like) return res.json({ liked: true });
+    return res.json({ liked: false });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to like message" });
+  }
+}
+
 module.exports = {
   postCreateMessage,
   postMessageLike,
+  getMessageLike,
 };
