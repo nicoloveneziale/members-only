@@ -2,7 +2,6 @@ const router = require("express").Router();
 const registerController = require("../controllers/registerController");
 const joinController = require("../controllers/joinController");
 const messageController = require("../controllers/messagesController");
-const indexController = require("../controllers/indexController");
 const userController = require("../controllers/userController");
 const loginController = require("../controllers/loginController");
 const passport = require("passport");
@@ -25,6 +24,6 @@ router.get("/api/me", ensureJWT, userController.getCurrentUser);
 
 router.get("/messages/:id/like", ensureJWT, messageController.getMessageLike);
 
-router.get("/", indexController.getIndex);
+router.get("/messages/:sortBy", messageController.getMessages);
 
 module.exports = router;

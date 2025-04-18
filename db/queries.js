@@ -85,8 +85,26 @@ async function createMessage(title, date, text, userId) {
   }
 }
 
-async function getAllMessages() {
+async function getAllMessages(sortBy) {
   try {
+    let orderByClause = {};
+
+    if (sortBy === "new") {
+      orderByClause = { date: "desc" };
+    } else if (sortBy === "most liked") {
+      orderByClause = {
+        likedBy: {
+          _count: "desc",
+        },
+      };
+    } else if (sortBy === "hot") {
+      orderByClause = {
+        likedBy: {
+          _count: "desc",
+        },
+      };
+    }
+
     const messages = await prisma.message.findMany({
       include: {
         users: {
@@ -105,6 +123,7 @@ async function getAllMessages() {
           },
         },
       },
+      orderBy: orderByClause,
     });
     return messages;
   } catch (err) {

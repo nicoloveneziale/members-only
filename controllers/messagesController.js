@@ -29,6 +29,16 @@ async function postMessageLike(req, res) {
   }
 }
 
+async function getMessages(req, res) {
+  try {
+    const messages = await db.getAllMessages(req.params.sortBy);
+    res.json(messages);
+  } catch (err) {
+    console.log(err);
+    res.json(err);
+  }
+}
+
 async function getMessageLike(req, res) {
   try {
     const messageId = parseInt(req.params.id, 10);
@@ -47,5 +57,6 @@ async function getMessageLike(req, res) {
 module.exports = {
   postCreateMessage,
   postMessageLike,
+  getMessages,
   getMessageLike,
 };
