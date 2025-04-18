@@ -122,6 +122,7 @@ exports.Prisma.MessageScalarFieldEnum = {
   title: 'title',
   date: 'date',
   text: 'text',
+  image: 'image',
   author_id: 'author_id'
 };
 

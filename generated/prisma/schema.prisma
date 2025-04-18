@@ -13,6 +13,7 @@ model Message {
   title     String?       @db.VarChar(255)
   date      DateTime?     @db.Timestamptz(6)
   text      String?
+  image     String?
   author_id Int?
   users     User?         @relation(fields: [author_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   likedBy   MessageLike[]

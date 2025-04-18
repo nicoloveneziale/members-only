@@ -16,6 +16,7 @@ app.use(sessionConfig());
 app.use(passport.initialize());
 app.use(passport.session());
 require("./config/passportConfig");
+app.use("/uploads", express.static("uploads"));
 
 //Server
 const PORT = process.env.PORT || 8000;

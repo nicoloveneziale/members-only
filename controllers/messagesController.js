@@ -4,7 +4,14 @@ async function postCreateMessage(req, res) {
   try {
     const { title, text } = req.body;
     const now = new Date();
-    const message = await db.createMessage(title, now, text, req.user.id);
+    const imagePath = req.file ? req.file.path : null;
+    const message = await db.createMessage(
+      title,
+      now,
+      text,
+      req.user.id,
+      imagePath,
+    );
     res.status(201).json({
       message: "Message created successfully",
       data: message,

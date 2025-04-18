@@ -5,13 +5,19 @@ const messageController = require("../controllers/messagesController");
 const userController = require("../controllers/userController");
 const loginController = require("../controllers/loginController");
 const passport = require("passport");
+const upload = require("../middleware/upload");
 
 const ensureJWT = passport.authenticate("jwt", { session: false });
 
 // POST routes
 router.post("/login", loginController.postLogin);
 
-router.post("/messages/create", ensureJWT, messageController.postCreateMessage);
+router.post(
+  "/messages/create",
+  ensureJWT,
+  upload.single("image"),
+  messageController.postCreateMessage,
+);
 
 router.post("/register", registerController.postRegister);
 

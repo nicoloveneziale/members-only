@@ -1239,6 +1239,7 @@ export namespace Prisma {
     title: string | null
     date: Date | null
     text: string | null
+    image: string | null
     author_id: number | null
   }
 
@@ -1247,6 +1248,7 @@ export namespace Prisma {
     title: string | null
     date: Date | null
     text: string | null
+    image: string | null
     author_id: number | null
   }
 
@@ -1255,6 +1257,7 @@ export namespace Prisma {
     title: number
     date: number
     text: number
+    image: number
     author_id: number
     _all: number
   }
@@ -1275,6 +1278,7 @@ export namespace Prisma {
     title?: true
     date?: true
     text?: true
+    image?: true
     author_id?: true
   }
 
@@ -1283,6 +1287,7 @@ export namespace Prisma {
     title?: true
     date?: true
     text?: true
+    image?: true
     author_id?: true
   }
 
@@ -1291,6 +1296,7 @@ export namespace Prisma {
     title?: true
     date?: true
     text?: true
+    image?: true
     author_id?: true
     _all?: true
   }
@@ -1386,6 +1392,7 @@ export namespace Prisma {
     title: string | null
     date: Date | null
     text: string | null
+    image: string | null
     author_id: number | null
     _count: MessageCountAggregateOutputType | null
     _avg: MessageAvgAggregateOutputType | null
@@ -1413,6 +1420,7 @@ export namespace Prisma {
     title?: boolean
     date?: boolean
     text?: boolean
+    image?: boolean
     author_id?: boolean
     users?: boolean | Message$usersArgs<ExtArgs>
     likedBy?: boolean | Message$likedByArgs<ExtArgs>
@@ -1424,6 +1432,7 @@ export namespace Prisma {
     title?: boolean
     date?: boolean
     text?: boolean
+    image?: boolean
     author_id?: boolean
     users?: boolean | Message$usersArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -1433,6 +1442,7 @@ export namespace Prisma {
     title?: boolean
     date?: boolean
     text?: boolean
+    image?: boolean
     author_id?: boolean
     users?: boolean | Message$usersArgs<ExtArgs>
   }, ExtArgs["result"]["message"]>
@@ -1442,10 +1452,11 @@ export namespace Prisma {
     title?: boolean
     date?: boolean
     text?: boolean
+    image?: boolean
     author_id?: boolean
   }
 
-  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "date" | "text" | "author_id", ExtArgs["result"]["message"]>
+  export type MessageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "date" | "text" | "image" | "author_id", ExtArgs["result"]["message"]>
   export type MessageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | Message$usersArgs<ExtArgs>
     likedBy?: boolean | Message$likedByArgs<ExtArgs>
@@ -1469,6 +1480,7 @@ export namespace Prisma {
       title: string | null
       date: Date | null
       text: string | null
+      image: string | null
       author_id: number | null
     }, ExtArgs["result"]["message"]>
     composites: {}
@@ -1899,6 +1911,7 @@ export namespace Prisma {
     readonly title: FieldRef<"Message", 'String'>
     readonly date: FieldRef<"Message", 'DateTime'>
     readonly text: FieldRef<"Message", 'String'>
+    readonly image: FieldRef<"Message", 'String'>
     readonly author_id: FieldRef<"Message", 'Int'>
   }
     
@@ -5581,6 +5594,7 @@ export namespace Prisma {
     title: 'title',
     date: 'date',
     text: 'text',
+    image: 'image',
     author_id: 'author_id'
   };
 
@@ -5721,6 +5735,7 @@ export namespace Prisma {
     title?: StringNullableFilter<"Message"> | string | null
     date?: DateTimeNullableFilter<"Message"> | Date | string | null
     text?: StringNullableFilter<"Message"> | string | null
+    image?: StringNullableFilter<"Message"> | string | null
     author_id?: IntNullableFilter<"Message"> | number | null
     users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     likedBy?: MessageLikeListRelationFilter
@@ -5731,6 +5746,7 @@ export namespace Prisma {
     title?: SortOrderInput | SortOrder
     date?: SortOrderInput | SortOrder
     text?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
     author_id?: SortOrderInput | SortOrder
     users?: UserOrderByWithRelationInput
     likedBy?: MessageLikeOrderByRelationAggregateInput
@@ -5744,6 +5760,7 @@ export namespace Prisma {
     title?: StringNullableFilter<"Message"> | string | null
     date?: DateTimeNullableFilter<"Message"> | Date | string | null
     text?: StringNullableFilter<"Message"> | string | null
+    image?: StringNullableFilter<"Message"> | string | null
     author_id?: IntNullableFilter<"Message"> | number | null
     users?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     likedBy?: MessageLikeListRelationFilter
@@ -5754,6 +5771,7 @@ export namespace Prisma {
     title?: SortOrderInput | SortOrder
     date?: SortOrderInput | SortOrder
     text?: SortOrderInput | SortOrder
+    image?: SortOrderInput | SortOrder
     author_id?: SortOrderInput | SortOrder
     _count?: MessageCountOrderByAggregateInput
     _avg?: MessageAvgOrderByAggregateInput
@@ -5770,6 +5788,7 @@ export namespace Prisma {
     title?: StringNullableWithAggregatesFilter<"Message"> | string | null
     date?: DateTimeNullableWithAggregatesFilter<"Message"> | Date | string | null
     text?: StringNullableWithAggregatesFilter<"Message"> | string | null
+    image?: StringNullableWithAggregatesFilter<"Message"> | string | null
     author_id?: IntNullableWithAggregatesFilter<"Message"> | number | null
   }
 
@@ -5940,6 +5959,7 @@ export namespace Prisma {
     title?: string | null
     date?: Date | string | null
     text?: string | null
+    image?: string | null
     users?: UserCreateNestedOneWithoutMessagesInput
     likedBy?: MessageLikeCreateNestedManyWithoutMessageInput
   }
@@ -5949,6 +5969,7 @@ export namespace Prisma {
     title?: string | null
     date?: Date | string | null
     text?: string | null
+    image?: string | null
     author_id?: number | null
     likedBy?: MessageLikeUncheckedCreateNestedManyWithoutMessageInput
   }
@@ -5957,6 +5978,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateOneWithoutMessagesNestedInput
     likedBy?: MessageLikeUpdateManyWithoutMessageNestedInput
   }
@@ -5966,6 +5988,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     author_id?: NullableIntFieldUpdateOperationsInput | number | null
     likedBy?: MessageLikeUncheckedUpdateManyWithoutMessageNestedInput
   }
@@ -5975,6 +5998,7 @@ export namespace Prisma {
     title?: string | null
     date?: Date | string | null
     text?: string | null
+    image?: string | null
     author_id?: number | null
   }
 
@@ -5982,6 +6006,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MessageUncheckedUpdateManyInput = {
@@ -5989,6 +6014,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     author_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -6223,6 +6249,7 @@ export namespace Prisma {
     title?: SortOrder
     date?: SortOrder
     text?: SortOrder
+    image?: SortOrder
     author_id?: SortOrder
   }
 
@@ -6236,6 +6263,7 @@ export namespace Prisma {
     title?: SortOrder
     date?: SortOrder
     text?: SortOrder
+    image?: SortOrder
     author_id?: SortOrder
   }
 
@@ -6244,6 +6272,7 @@ export namespace Prisma {
     title?: SortOrder
     date?: SortOrder
     text?: SortOrder
+    image?: SortOrder
     author_id?: SortOrder
   }
 
@@ -7007,6 +7036,7 @@ export namespace Prisma {
     title?: string | null
     date?: Date | string | null
     text?: string | null
+    image?: string | null
     likedBy?: MessageLikeCreateNestedManyWithoutMessageInput
   }
 
@@ -7015,6 +7045,7 @@ export namespace Prisma {
     title?: string | null
     date?: Date | string | null
     text?: string | null
+    image?: string | null
     likedBy?: MessageLikeUncheckedCreateNestedManyWithoutMessageInput
   }
 
@@ -7070,6 +7101,7 @@ export namespace Prisma {
     title?: StringNullableFilter<"Message"> | string | null
     date?: DateTimeNullableFilter<"Message"> | Date | string | null
     text?: StringNullableFilter<"Message"> | string | null
+    image?: StringNullableFilter<"Message"> | string | null
     author_id?: IntNullableFilter<"Message"> | number | null
   }
 
@@ -7119,6 +7151,7 @@ export namespace Prisma {
     title?: string | null
     date?: Date | string | null
     text?: string | null
+    image?: string | null
     users?: UserCreateNestedOneWithoutMessagesInput
   }
 
@@ -7127,6 +7160,7 @@ export namespace Prisma {
     title?: string | null
     date?: Date | string | null
     text?: string | null
+    image?: string | null
     author_id?: number | null
   }
 
@@ -7182,6 +7216,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     users?: UserUpdateOneWithoutMessagesNestedInput
   }
 
@@ -7190,6 +7225,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     author_id?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
@@ -7214,6 +7250,7 @@ export namespace Prisma {
     title?: string | null
     date?: Date | string | null
     text?: string | null
+    image?: string | null
   }
 
   export type MessageLikeCreateManyUserInput = {
@@ -7224,6 +7261,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     likedBy?: MessageLikeUpdateManyWithoutMessageNestedInput
   }
 
@@ -7232,6 +7270,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
     likedBy?: MessageLikeUncheckedUpdateManyWithoutMessageNestedInput
   }
 
@@ -7240,6 +7279,7 @@ export namespace Prisma {
     title?: NullableStringFieldUpdateOperationsInput | string | null
     date?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     text?: NullableStringFieldUpdateOperationsInput | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type MessageLikeUpdateWithoutUserInput = {
