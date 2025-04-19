@@ -12,6 +12,7 @@ async function postCreateMessage(req, res) {
       req.user.id,
       imagePath,
     );
+    message.users = req.user;
     res.status(201).json({
       message: "Message created successfully",
       data: message,
