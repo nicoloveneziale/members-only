@@ -36,6 +36,7 @@ model User {
   admin             Boolean?
   messages          Message[]
   likedMessages     MessageLike[]
+  profile           Profile?
 }
 
 model MessageLike {
@@ -45,4 +46,14 @@ model MessageLike {
   message   Message @relation(fields: [messageId], references: [id], onDelete: Cascade)
 
   @@id([userId, messageId])
+}
+
+model Profile {
+  id       Int     @id @default(autoincrement())
+  bio      String? @db.Text
+  avatar   String?
+  location String? @db.VarChar(100)
+  website  String? @db.VarChar(255)
+  userId   Int     @unique
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

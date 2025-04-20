@@ -19,6 +19,82 @@ async function createUser(username, password, firstname, lastname) {
   }
 }
 
+async function createUserProfile(id) {
+  try {
+    const profile = await prisma.profile.create({
+      data: {
+        user: { connect: { id: id } },
+      },
+    });
+    return profile;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+async function editUserProfile(userId, bio, location, website, avatarPath) {
+  try {
+    const profile = await prisma.profile.update({
+      where: {
+        userId: userId,
+      },
+      data: {
+        bio: bio,
+        location: location,
+        website: website,
+        avatar: avatarPath,
+      },
+    });
+    return profile;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+async function getProfile(id) {
+  try {
+    const profile = await prisma.profile.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        user: {
+          include: {
+            messages: true,
+          },
+        },
+      },
+    });
+    return profile;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
+async function getUserProfile(id) {
+  try {
+    const profile = await prisma.profile.findUnique({
+      where: {
+        userId: id,
+      },
+      include: {
+        user: {
+          include: {
+            messages: true,
+          },
+        },
+      },
+    });
+    return profile;
+  } catch (err) {
+    console.log(err);
+    throw err;
+  }
+}
+
 async function findUserFromUsername(username) {
   try {
     const user = await prisma.user.findUnique({
@@ -217,4 +293,8 @@ module.exports = {
   getMessageLike,
   getMessage,
   deleteMessage,
+  getUserProfile,
+  createUserProfile,
+  editUserProfile,
+  getProfile,
 };

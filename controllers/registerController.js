@@ -36,40 +36,30 @@ const validateUser = [
 
 const postRegister = [
   validateUser,
-  async (req, res) => {
+  async (req, res, next) => {
     try {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
       }
       const encryptedPassword = await bcrypt.hash(req.body.password, 10);
-      await db.createUser(
+      const user = await db.createUser(
         req.body.username,
         encryptedPassword,
         req.body.firstname,
         req.body.lastname,
       );
 
-      const user = await db.findUserFromUsername(req.body.username);
-
-      if (!user) {
+      if (!user)
         return res.status(500).json({ error: "User registration failed" });
-      }
 
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
         expiresIn: "1d",
       });
 
-      res.status(201).json({
-        message: "User registered successfully",
-        token,
-        user: {
-          id: user.id,
-          username: user.username,
-          firstname: user.firstname,
-          lastname: user.lastname,
-        },
-      });
+      req.user = user;
+      req.token = token;
+      next();
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: "Internal server error" });
