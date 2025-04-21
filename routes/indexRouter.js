@@ -5,7 +5,9 @@ const messageController = require("../controllers/messagesController");
 const userController = require("../controllers/userController");
 const loginController = require("../controllers/loginController");
 const passport = require("passport");
-const upload = require("../middleware/upload");
+const multer = require("multer");
+const { storage } = require("../config/cloudinary");
+const upload = multer({ storage });
 
 const ensureJWT = passport.authenticate("jwt", { session: false });
 
