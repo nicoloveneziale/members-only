@@ -7,6 +7,16 @@ async function getCurrentUser(req, res) {
   res.json({ user: req.user });
 }
 
+async function getProfile(req, res) {
+  try {
+    const id = parseInt(req.params.id);
+    const profile = await db.getProfile(id);
+    res.json({ profile: profile });
+  } catch {
+    res.status(500).json({ error: "Failed to get user profile" });
+  }
+}
+
 async function getUserProfileMe(req, res) {
   try {
     const id = parseInt(req.user.id);
@@ -19,7 +29,7 @@ async function getUserProfileMe(req, res) {
 
 async function getUserProfile(req, res) {
   try {
-    const profile = await db.getProfile(parseInt(req.params.id));
+    const profile = await db.getUserProfile(parseInt(req.params.id));
     res.json({ profile: profile });
   } catch {
     res.status(500).json({ error: "Failed to get user profile" });
@@ -72,4 +82,5 @@ module.exports = {
   createUserProfile,
   patchUserProfile,
   getUserProfileMe,
+  getProfile,
 };

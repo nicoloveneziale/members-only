@@ -68,7 +68,6 @@ async function deleteMessage(req, res) {
     const userId = req.user.id;
     if (userId != (await db.getMessage(messageId)).author_id)
       return res.status(401).json({ error: "Cannot delete other users post" });
-    console.log("fine");
     db.deleteMessage(messageId);
     res.json({ message: "Message deleted" });
   } catch (err) {

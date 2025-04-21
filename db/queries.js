@@ -53,16 +53,25 @@ async function editUserProfile(userId, bio, location, website, avatarPath) {
   }
 }
 
-async function getProfile(id) {
+async function getUserProfile(id) {
   try {
     const profile = await prisma.profile.findUnique({
-      where: {
-        id: id,
-      },
+      where: { id: id },
       include: {
         user: {
           include: {
-            messages: true,
+            messages: {
+              include: {
+                users: {
+                  include: {
+                    profile: true,
+                  },
+                },
+                _count: {
+                  select: { likedBy: true },
+                },
+              },
+            },
           },
         },
       },
@@ -74,19 +83,10 @@ async function getProfile(id) {
   }
 }
 
-async function getUserProfile(id) {
+async function getProfile(id) {
   try {
     const profile = await prisma.profile.findUnique({
-      where: {
-        userId: id,
-      },
-      include: {
-        user: {
-          include: {
-            messages: true,
-          },
-        },
-      },
+      where: { userId: id },
     });
     return profile;
   } catch (err) {
@@ -192,6 +192,7 @@ async function getAllMessages(sortBy) {
             lastname: true,
             membership_status: true,
             admin: true,
+            profile: true,
           },
         },
         _count: {
