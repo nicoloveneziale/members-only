@@ -1,7 +1,6 @@
 const db = require("../db/queries");
 
 async function getCurrentUser(req, res) {
-  console.log("Session:", req.session);
   if (!req.user) {
     return res.status(401).json({ error: "Unauthorised" });
   }
